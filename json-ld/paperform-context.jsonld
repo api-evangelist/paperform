@@ -1,0 +1,73 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "paperform": "https://paperform.co/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Form": "paperform:Form",
+    "Submission": "paperform:Submission",
+    "PartialSubmission": "paperform:PartialSubmission",
+    "Field": "paperform:Field",
+    "Product": "paperform:Product",
+    "Coupon": "paperform:Coupon",
+    "Webhook": "paperform:Webhook",
+    "Space": "paperform:Space",
+    "Translation": "paperform:Translation",
+    "Document": "paperform:Document",
+    "Folder": "paperform:Folder",
+
+    "formId": { "@id": "paperform:formId", "@type": "xsd:string" },
+    "slug": { "@id": "paperform:slug", "@type": "xsd:string" },
+    "title": { "@id": "schema:name", "@type": "xsd:string" },
+    "description": { "@id": "schema:description", "@type": "xsd:string" },
+    "createdAt": { "@id": "schema:dateCreated", "@type": "xsd:dateTime" },
+    "updatedAt": { "@id": "schema:dateModified", "@type": "xsd:dateTime" },
+    "submissionId": { "@id": "paperform:submissionId", "@type": "xsd:string" },
+    "fieldKey": { "@id": "paperform:fieldKey", "@type": "xsd:string" },
+    "fieldType": { "@id": "paperform:fieldType", "@type": "xsd:string" },
+    "productId": { "@id": "paperform:productId", "@type": "xsd:string" },
+    "couponCode": { "@id": "paperform:couponCode", "@type": "xsd:string" },
+    "discountType": { "@id": "paperform:discountType", "@type": "xsd:string" },
+    "discountValue": { "@id": "paperform:discountValue", "@type": "xsd:decimal" },
+    "webhookId": { "@id": "paperform:webhookId", "@type": "xsd:string" },
+    "webhookUrl": { "@id": "paperform:webhookUrl", "@type": "xsd:anyURI" },
+    "event": { "@id": "paperform:event", "@type": "xsd:string" },
+    "spaceId": { "@id": "paperform:spaceId", "@type": "xsd:string" },
+    "documentId": { "@id": "paperform:documentId", "@type": "xsd:string" },
+    "folderId": { "@id": "paperform:folderId", "@type": "xsd:string" },
+    "status": { "@id": "paperform:status", "@type": "xsd:string" },
+    "apiTier": { "@id": "paperform:apiTier", "@type": "xsd:string" },
+
+    "name": "schema:name",
+    "email": "schema:email",
+    "url": "schema:url",
+    "price": "schema:price",
+    "currency": "schema:priceCurrency",
+    "quantity": "schema:inventoryLevel",
+    "image": "schema:image"
+  },
+  "@graph": [
+    {
+      "@id": "https://paperform.co",
+      "@type": "schema:Organization",
+      "schema:name": "Paperform",
+      "schema:url": "https://paperform.co",
+      "schema:description": "Online form and payment platform offering a REST API for managing forms, submissions, products, coupons, webhooks, and electronic signatures via Papersign.",
+      "schema:sameAs": [
+        "https://github.com/paperform-co",
+        "https://linkedin.com/company/paperformco",
+        "https://x.com/paperformco"
+      ]
+    },
+    {
+      "@id": "https://api.paperform.co",
+      "@type": "schema:WebAPI",
+      "schema:name": "Paperform REST API",
+      "schema:description": "REST API providing access to Paperform forms, submissions, products, coupons, webhooks, spaces, translations, and the Papersign e-signature product.",
+      "schema:url": "https://paperform.readme.io/reference/getting-started-1",
+      "schema:provider": { "@id": "https://paperform.co" },
+      "paperform:apiTiers": ["Standard API", "Business API", "Papersign API"]
+    }
+  ]
+}

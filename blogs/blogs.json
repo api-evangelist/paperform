@@ -1,0 +1,67 @@
+{
+  "provider": "paperform",
+  "blog_url": "https://paperform.co/blog/",
+  "last_fetched": "2026-06-13",
+  "posts": [
+    {
+      "title": "Paperform Named a 2026 G2 Best Software Award Winner",
+      "url": "https://paperform.co/blog/paperform-wins-g2-best-software-award/",
+      "date": null,
+      "tags": ["award", "recognition"]
+    },
+    {
+      "title": "How Co.Lab Captured 30,000 Leads With Paperform",
+      "url": "https://paperform.co/blog/colab-paperform-case-study/",
+      "date": null,
+      "tags": ["case-study", "lead-generation"]
+    },
+    {
+      "title": "How SmileBox Scaled to 30,000 Orders with Paperform — A Small Business eCommerce Case Study",
+      "url": "https://paperform.co/blog/smilebox-paperform-ecommerce-case-study/",
+      "date": null,
+      "tags": ["case-study", "ecommerce"]
+    },
+    {
+      "title": "How This App Founder Built Her Business Infrastructure with Paperform",
+      "url": "https://paperform.co/blog/glowsocial-founder-built-with-paperform/",
+      "date": null,
+      "tags": ["case-study", "startup"]
+    },
+    {
+      "title": "Zapier vs Stepper: Which Automation Tool is Best",
+      "url": "https://paperform.co/blog/zapier-vs-stepper/",
+      "date": null,
+      "tags": ["automation", "comparison"]
+    },
+    {
+      "title": "The 7 best WordPress form plugins in 2026",
+      "url": "https://paperform.co/blog/wordpress-form-builder-plugins/",
+      "date": null,
+      "tags": ["wordpress", "forms", "roundup"]
+    },
+    {
+      "title": "Best Automation Tools in 2026",
+      "url": "https://paperform.co/blog/best-automation-workflow-tools-2026/",
+      "date": null,
+      "tags": ["automation", "roundup"]
+    },
+    {
+      "title": "15 best DocuSign alternatives in 2026",
+      "url": "https://paperform.co/blog/docusign-alternatives/",
+      "date": null,
+      "tags": ["esignature", "comparison", "roundup"]
+    },
+    {
+      "title": "Best Online Form Builders in 2026",
+      "url": "https://paperform.co/blog/best-online-form-builders/",
+      "date": null,
+      "tags": ["forms", "roundup"]
+    },
+    {
+      "title": "15 best software tools for teachers in 2026",
+      "url": "https://paperform.co/blog/software-for-teachers/",
+      "date": null,
+      "tags": ["education", "roundup"]
+    }
+  ]
+}

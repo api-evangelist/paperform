@@ -1,0 +1,71 @@
+aid: paperform
+name: Paperform
+description: Paperform is an online form and payment platform offering a REST API for accessing form submissions, managing products and coupons, processing payments, configuring webhooks, and automating form-based workflows. The API supports two access tiers — Standard and Business — gated by subscription plan, with Papersign document signing available as an additional API surface.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/paperform/refs/heads/main/apis.yml
+created: 2026-06-13
+modified: 2026-06-13
+specificationVersion: "0.19"
+tags:
+  - Forms
+  - Payments
+  - Submissions
+  - Surveys
+  - eSignature
+  - Webhooks
+  - No-Code
+apis:
+  - name: Paperform API
+    description: REST API for managing Paperform forms, submissions, partial submissions, products, coupons, webhooks, spaces, and translations. Standard API access is included on Pro plans; Business API endpoints (form updates, product management, webhook configuration) require Business or Enterprise plans.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://paperform.readme.io/reference/getting-started-1
+    baseURL: https://api.paperform.co
+    tags:
+      - Forms
+      - Submissions
+      - Products
+      - Webhooks
+    properties:
+      - type: Documentation
+        url: https://paperform.readme.io/reference/getting-started-1
+      - type: OpenAPI
+        url: https://paperform.readme.io/llms.txt
+  - name: Papersign API
+    description: REST API for managing Papersign electronic signature documents, folders, spaces, and webhooks. Requires a separate Papersign API plan and provides endpoints to list, create, send, copy, cancel, and move signing documents.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://paperform.readme.io/reference/getting-started-1
+    baseURL: https://api.paperform.co
+    tags:
+      - eSignature
+      - Documents
+      - Webhooks
+    properties:
+      - type: Documentation
+        url: https://paperform.readme.io/reference/getting-started-1
+common:
+  - type: Website
+    url: https://paperform.co
+  - type: Documentation
+    url: https://paperform.readme.io/reference/getting-started-1
+  - type: GitHubOrg
+    url: https://github.com/paperform-co
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/paperformco
+  - type: Blog
+    url: https://paperform.co/blog/
+  - type: Pricing
+    url: https://paperform.co/pricing/
+  - type: StatusPage
+    url: https://paperform.statuspage.io/
+  - type: X
+    url: https://x.com/paperformco
+  - type: Plans
+    url: plans/paperform-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/paperform-rate-limits.yml
+  - type: FinOps
+    url: finops/paperform-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

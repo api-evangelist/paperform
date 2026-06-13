@@ -1,0 +1,28 @@
+name: Paperform API Rate Limits
+description: Paperform enforces per-minute request rate limits on all API endpoints. Requests that exceed the limit receive a 429 Too Many Requests HTTP response. Rate limit status is communicated via standard response headers, allowing clients to implement adaptive backoff strategies.
+specificationVersion: "0.1"
+url: https://paperform.readme.io/reference/getting-started-1
+limits:
+  - name: Per-Minute Request Limit
+    description: The maximum number of API requests permitted per minute per API key. Exact numeric limits are not publicly disclosed; clients should monitor response headers to track consumption.
+    scope: api-key
+    window: 60
+    windowUnit: seconds
+    limitType: requests
+    headers:
+      - name: X-RateLimit-Limit
+        description: The maximum number of requests allowed in the current time window.
+      - name: X-RateLimit-Remaining
+        description: The number of requests remaining in the current time window.
+      - name: X-RateLimit-Reset
+        description: Unix timestamp indicating when the current rate limit window resets.
+      - name: Retry-After
+        description: Number of seconds the client should wait before retrying after a 429 response.
+    errorResponse:
+      httpStatus: 429
+      message: Too Many Requests
+behaviors:
+  - name: Adaptive Backoff
+    description: Clients should inspect X-RateLimit-Remaining on every response and pause requests when the value approaches zero. On receipt of a 429 response, clients must wait the number of seconds specified in the Retry-After header before retrying.
+  - name: Regional Endpoints
+    description: Enterprise customers in AU and EU regions use region-specific base URLs (https://api.{region}.paperform.co/). Rate limits apply independently per regional endpoint.

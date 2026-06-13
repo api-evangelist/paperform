@@ -1,0 +1,73 @@
+name: Paperform FinOps
+description: FinOps Framework FOCUS-aligned cost and usage profile for Paperform API consumption. Paperform uses subscription-based pricing with API access gated by plan tier. There are no per-call API charges; cost is driven entirely by subscription plan selection and user seat add-ons.
+specificationVersion: "1.0"
+url: https://paperform.co/pricing/
+framework: FinOps Framework
+alignment: FOCUS 1.0
+costModel:
+  type: subscription
+  billingCycles:
+    - monthly
+    - annual
+  currency: USD
+  notes: No metered or per-call API pricing. All API access is bundled into the monthly/annual subscription. Annual billing provides ~18% savings over month-to-month.
+
+services:
+  - name: Paperform Subscription
+    description: Core platform subscription that determines which API tier (Standard or Business) is available. API access requires Pro ($49/mo) or Business ($99/mo) plans at minimum.
+    costDrivers:
+      - name: Plan Tier
+        description: The selected subscription tier (Essentials, Pro, Business, Enterprise) is the primary cost driver. Essentials and Free have no API access.
+        unit: plan
+        tiers:
+          - tier: Free
+            price: 0
+            apiAccess: none
+          - tier: Essentials
+            monthlyPrice: 24
+            annualPrice: 288
+            apiAccess: none
+          - tier: Pro
+            monthlyPrice: 49
+            annualPrice: 588
+            apiAccess: Standard
+          - tier: Business
+            monthlyPrice: 99
+            annualPrice: 1188
+            apiAccess: Standard + Business
+          - tier: Enterprise
+            price: custom
+            apiAccess: Standard + Business + Regional
+      - name: Additional User Seats
+        description: Business plan allows up to 25 total users; additional seats beyond the base 5 cost $9/month each.
+        unit: user/month
+        price: 9
+        applicablePlans:
+          - Business
+
+  - name: Papersign API
+    description: Electronic signature feature with its own API plan requirement, layered on top of the base Paperform subscription.
+    costDrivers:
+      - name: Papersign Plan
+        description: Papersign API access requires a separate Papersign-specific plan in addition to the base Paperform plan.
+        unit: plan
+        notes: Pricing details for Papersign plans available at https://paperform.co/pricing/
+
+optimization:
+  - name: Annual Billing
+    description: Switching from monthly to annual billing reduces subscription cost by approximately 18% (e.g., Pro drops from $588/year equivalent at $49/mo to $588/year billed upfront — verify current annual rate at pricing page).
+  - name: Plan Right-Sizing
+    description: If only read-only form and submission access is needed, the Pro plan (Standard API) is sufficient. Business API endpoints (write operations) only require the Business plan if those capabilities are actively used.
+  - name: Submission Volume Monitoring
+    description: Submission caps (1,200/year Essentials, 12,000/year Pro, 120,000/year Business) can force plan upgrades. Monitor submission usage to avoid overage-driven tier bumps.
+
+allocation:
+  - dimension: API Tier
+    values:
+      - Standard (Pro+)
+      - Business (Business+)
+  - dimension: Region
+    values:
+      - Global (default)
+      - AU (Enterprise)
+      - EU (Enterprise)

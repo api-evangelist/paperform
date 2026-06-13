@@ -1,0 +1,76 @@
+name: Paperform Plans and Pricing
+description: Paperform subscription plans with associated API access levels. API access is not available on Free or Essentials plans. Standard API access is unlocked at the Pro tier; Business API (including form management, product CRUD, webhook configuration, spaces, and translations) requires Business or Enterprise.
+specificationVersion: "0.1"
+url: https://paperform.co/pricing/
+plans:
+  - name: Free
+    description: Entry-level plan with no API access, limited to 30 submissions per month and 1 user.
+    price: 0
+    currency: USD
+    billingCycle: monthly
+    features:
+      - Unlimited forms
+      - 30 submissions per month
+      - 1 user
+      - No API access
+    apiAccess: false
+
+  - name: Essentials
+    description: Basic paid plan focused on form building and submissions without API access.
+    price: 24
+    currency: USD
+    billingCycle: monthly
+    annualPrice: 288
+    features:
+      - Unlimited forms
+      - 1,200 submissions per year
+      - 1 user
+      - No API access
+    apiAccess: false
+
+  - name: Pro
+    description: Mid-tier plan that unlocks Standard API access for retrieving forms, submissions, and partial submissions.
+    price: 49
+    currency: USD
+    billingCycle: monthly
+    annualPrice: 588
+    features:
+      - Unlimited forms
+      - 12,000 submissions per year
+      - 3 users
+      - Standard API access
+      - Papersign API (separate plan required)
+    apiAccess: true
+    apiTier: Standard
+
+  - name: Business
+    description: Full-featured plan with both Standard and Business API access, enabling form updates, product and coupon management, webhook CRUD, spaces, and translations via API.
+    price: 99
+    currency: USD
+    billingCycle: monthly
+    annualPrice: 1188
+    features:
+      - Unlimited forms
+      - 120,000 submissions per year
+      - 5 users (additional users at $9/month each, max 25)
+      - Standard API access
+      - Business API access
+      - Papersign API (separate plan required)
+    apiAccess: true
+    apiTier: Business
+
+  - name: Enterprise
+    description: Custom enterprise plan with full API access, regional hosting options (AU, EU), SSO/SAML, and dedicated support.
+    price: custom
+    currency: USD
+    billingCycle: annual
+    features:
+      - Unlimited forms and submissions
+      - Custom user limits
+      - Standard API access
+      - Business API access
+      - Regional API endpoints (AU, EU)
+      - SSO / SAML
+      - Dedicated support
+    apiAccess: true
+    apiTier: Business

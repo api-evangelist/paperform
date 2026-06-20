@@ -2,7 +2,7 @@ aid: paperform
 name: Paperform
 description: Paperform is an online form and payment platform offering a REST API for accessing form submissions, managing products and coupons, processing payments, configuring webhooks, and automating form-based workflows. The API supports two access tiers — Standard and Business — gated by subscription plan, with Papersign document signing available as an additional API surface.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/paperform/refs/heads/main/apis.yml
 created: 2026-06-13
 modified: 2026-06-13
@@ -18,7 +18,7 @@ tags:
 apis:
   - name: Paperform API
     description: REST API for managing Paperform forms, submissions, partial submissions, products, coupons, webhooks, spaces, and translations. Standard API access is included on Pro plans; Business API endpoints (form updates, product management, webhook configuration) require Business or Enterprise plans.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://paperform.readme.io/reference/getting-started-1
     baseURL: https://api.paperform.co
     tags:
@@ -33,7 +33,7 @@ apis:
         url: https://paperform.readme.io/llms.txt
   - name: Papersign API
     description: REST API for managing Papersign electronic signature documents, folders, spaces, and webhooks. Requires a separate Papersign API plan and provides endpoints to list, create, send, copy, cancel, and move signing documents.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://paperform.readme.io/reference/getting-started-1
     baseURL: https://api.paperform.co
     tags:

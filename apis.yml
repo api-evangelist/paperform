@@ -44,6 +44,8 @@ apis:
       - type: Documentation
         url: https://paperform.readme.io/reference/getting-started-1
 common:
+  - type: DomainSecurity
+    url: security/paperform-domain-security.yml
   - type: Website
     url: https://paperform.co
   - type: Documentation

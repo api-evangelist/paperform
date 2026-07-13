@@ -2,18 +2,11 @@
   "repo": "paperform",
   "feeds": [
     {
-      "source": "https://paperform.co/blog/",
-      "feed_url": "",
-      "saved": 0,
-      "method": "agent-scrape"
-    },
-    {
       "source": "https://www.linkedin.com/company/paperformco",
-      "saved": 0,
-      "error": "not fetched"
+      "error": "HTTPError"
     }
   ],
-  "fetched": "2026-06-27T13:00:21Z",
+  "fetched": "2026-07-11T11:50:51Z",
   "post_count": 1,
   "agent_pulled": "2026-06-27"
 }

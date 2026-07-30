@@ -2,7 +2,19 @@ aid: paperform
 name: Paperform
 description: Paperform is an online form and payment platform offering a REST API for accessing form submissions, managing products and coupons, processing payments, configuring webhooks, and automating form-based workflows. The API supports two access tiers — Standard and Business — gated by subscription plan, with Papersign document signing available as an additional API surface.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Freemium
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/paperform.png
 url: https://raw.githubusercontent.com/api-evangelist/paperform/refs/heads/main/apis.yml
 created: 2026-06-13
 modified: 2026-06-13

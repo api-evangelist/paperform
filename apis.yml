@@ -2,6 +2,17 @@ aid: paperform
 name: Paperform
 description: Paperform is an online form and payment platform offering a REST API for accessing form submissions, managing products and coupons, processing payments, configuring webhooks, and automating form-based workflows. The API supports two access tiers — Standard and Business — gated by subscription plan, with Papersign document signing available as an additional API surface.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: unknown

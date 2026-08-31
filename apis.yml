@@ -35,7 +35,7 @@ tags:
   - Payments
   - Submissions
   - Surveys
-  - E-Signature
+  - eSignature
   - Webhook
   - No-Code
 tags_raw:
@@ -73,7 +73,7 @@ apis:
     humanURL: https://paperform.readme.io/reference/getting-started-1
     baseURL: https://api.paperform.co
     tags:
-      - E-Signature
+      - eSignature
       - Documents
       - Webhook
     tags_raw:

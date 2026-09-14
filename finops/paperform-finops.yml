@@ -19,6 +19,7 @@ services:
       - name: Plan Tier
         description: The selected subscription tier (Essentials, Pro, Business, Enterprise) is the primary cost driver. Essentials and Free have no API access.
         unit: plan
+        notes: The monthlyPrice values below ($24/$49/$99) are annual-billed monthly equivalents, NOT month-to-month rates — month-to-month is higher. Current month-to-month and annual rates are at https://paperform.co/pricing/. Confirmed by Paperform 2026-09-14.
         tiers:
           - tier: Free
             price: 0
@@ -55,7 +56,7 @@ services:
 
 optimization:
   - name: Annual Billing
-    description: Switching from monthly to annual billing reduces subscription cost by approximately 18% (e.g., Pro drops from $588/year equivalent at $49/mo to $588/year billed upfront — verify current annual rate at pricing page).
+    description: Annual billing runs ~18% cheaper than paying month-to-month for the same plan. The comparison is month-to-month billing vs annual billing — the $24/$49/$99 figures already reflect the annual-billed monthly equivalent. Current month-to-month and annual rates are at https://paperform.co/pricing/.
   - name: Plan Right-Sizing
     description: If only read-only form and submission access is needed, the Pro plan (Standard API) is sufficient. Business API endpoints (write operations) only require the Business plan if those capabilities are actively used.
   - name: Submission Volume Monitoring

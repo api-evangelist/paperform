@@ -16,15 +16,18 @@ deliveryModel:
 accessModel:
   pricing: freemium
   onboarding: unknown
-  trial: false
+  trial: true
   try_now: false
   public: false
   label: Freemium
-  confidence: medium
+  confidence: high
   source:
   - plans
-  generated: '2026-07-22'
-  method: derived
+  - pricing
+  - provider-correction
+  generated: '2026-09-14'
+  method: provider-confirmed
+  notes: 7-day free trial, no credit card required, on Essentials/Pro/Business plan cards (paperform.co/pricing). Enterprise is quote-based, outside the trial. Confirmed by Paperform engineering 2026-09-14.
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/paperform.png
 url: https://raw.githubusercontent.com/api-evangelist/paperform/refs/heads/main/apis.yml
 created: 2026-06-13
@@ -66,7 +69,10 @@ apis:
       - type: Documentation
         url: https://paperform.readme.io/reference/getting-started-1
       - type: OpenAPI
-        url: https://paperform.readme.io/llms.txt
+        url: openapi/paperform-openapi.json
+      - type: OpenAPI
+        name: Paperform OpenAPI (provider-hosted, generated from source)
+        url: https://paperform.readme.io/openapi/628f104209e221006e6c52fc
   - name: Papersign API
     description: REST API for managing Papersign electronic signature documents, folders, spaces, and webhooks. Requires a separate Papersign API plan and provides endpoints to list, create, send, copy, cancel, and move signing documents.
     image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
@@ -90,6 +96,18 @@ common:
     url: https://paperform.co
   - type: Documentation
     url: https://paperform.readme.io/reference/getting-started-1
+  - type: APICatalog
+    name: RFC 9727 linkset (ReadMe-generated over Paperform's OpenAPI)
+    url: https://paperform.readme.io/.well-known/api-catalog
+  - type: AgentSkill
+    name: agentskills.io discovery 0.2.0 (ReadMe-generated)
+    url: https://paperform.readme.io/.well-known/agent-skills/index.json
+  - type: LLMsTxt
+    name: paperform.readme.io llms.txt (docs, provider-published)
+    url: https://paperform.readme.io/llms.txt
+  - type: LLMsTxt
+    name: paperform.co llms.txt (main site, provider-published)
+    url: https://paperform.co/llms.txt
   - type: GitHubOrg
     url: https://github.com/paperform-co
   - type: LinkedIn
@@ -108,6 +126,12 @@ common:
     url: rate-limits/paperform-rate-limits.yml
   - type: FinOps
     url: finops/paperform-finops.yml
+  - type: MCP
+    name: Paperform API over MCP via Stepper Skill Sets (first-party gateway, not a dedicated Paperform server)
+    url: https://mcp.stepper.io/skill-sets/mcp
+  - type: Documentation
+    name: Stepper Skill Sets — Paperform connector (triggers/actions)
+    url: https://stepper.io/apps/paperform
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

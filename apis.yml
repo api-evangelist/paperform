@@ -50,45 +50,193 @@ tags_raw:
   - Webhooks
   - No-Code
 apis:
-  - name: Paperform API
-    description: REST API for managing Paperform forms, submissions, partial submissions, products, coupons, webhooks, spaces, and translations. Standard API access is included on Pro plans; Business API endpoints (form updates, product management, webhook configuration) require Business or Enterprise plans.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://paperform.readme.io/reference/getting-started-1
-    baseURL: https://api.paperform.co
-    tags:
-      - Forms
-      - Submissions
-      - Product
-      - Webhook
-    tags_raw:
-      - Forms
-      - Submissions
-      - Products
-      - Webhooks
-    properties:
-      - type: Documentation
-        url: https://paperform.readme.io/reference/getting-started-1
-      - type: OpenAPI
-        url: openapi/paperform-openapi.json
-      - type: OpenAPI
-        name: Paperform OpenAPI (provider-hosted, generated from source)
-        url: https://paperform.readme.io/openapi/628f104209e221006e6c52fc
-  - name: Papersign API
-    description: REST API for managing Papersign electronic signature documents, folders, spaces, and webhooks. Requires a separate Papersign API plan and provides endpoints to list, create, send, copy, cancel, and move signing documents.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://paperform.readme.io/reference/getting-started-1
-    baseURL: https://api.paperform.co
-    tags:
-      - E-Signature
-      - Documents
-      - Webhook
-    tags_raw:
-      - eSignature
-      - Documents
-      - Webhooks
-    properties:
-      - type: Documentation
-        url: https://paperform.readme.io/reference/getting-started-1
+- name: Papersign API
+  description: >-
+    REST API for managing Papersign electronic signature documents, folders, spaces, and webhooks. Requires
+    a separate Papersign API plan and provides endpoints to list, create, send, copy, cancel, and move
+    signing documents.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://paperform.readme.io/reference/getting-started-1
+  baseURL: https://api.paperform.co
+  tags:
+  - E-Signature
+  - Documents
+  - Webhook
+  tags_raw:
+  - eSignature
+  - Documents
+  - Webhooks
+  properties:
+  - type: Documentation
+    url: https://paperform.readme.io/reference/getting-started-1
+- aid: paperform:paperform-coupons-api
+  name: Paperform Coupons API
+  description: The Coupons API from Paperform — 2 operation(s) for coupons.
+  humanURL: https://paperform.readme.io/reference/getting-started-1
+  baseURL: https://api.paperform.co
+  tags:
+  - Coupons
+  properties:
+  - type: OpenAPI
+    url: openapi/paperform-coupons-api-openapi.yml
+  - type: Documentation
+    url: https://paperform.readme.io/reference/getting-started-1
+- aid: paperform:paperform-files-api
+  name: Paperform Files API
+  description: The Files API from Paperform — 1 operation(s) for files.
+  humanURL: https://paperform.readme.io/reference/getting-started-1
+  baseURL: https://api.paperform.co
+  tags:
+  - Files
+  properties:
+  - type: OpenAPI
+    url: openapi/paperform-files-api-openapi.yml
+  - type: Documentation
+    url: https://paperform.readme.io/reference/getting-started-1
+- aid: paperform:paperform-form-fields-api
+  name: Paperform Form Fields API
+  description: The Form Fields API from Paperform — 2 operation(s) for form fields.
+  humanURL: https://paperform.readme.io/reference/getting-started-1
+  baseURL: https://api.paperform.co
+  tags:
+  - Form Fields
+  properties:
+  - type: OpenAPI
+    url: openapi/paperform-form-fields-api-openapi.yml
+  - type: Documentation
+    url: https://paperform.readme.io/reference/getting-started-1
+- aid: paperform:paperform-forms-api
+  name: Paperform Forms API
+  description: The Forms API from Paperform — 2 operation(s) for forms.
+  humanURL: https://paperform.readme.io/reference/getting-started-1
+  baseURL: https://api.paperform.co
+  tags:
+  - Forms
+  properties:
+  - type: OpenAPI
+    url: openapi/paperform-forms-api-openapi.yml
+  - type: Documentation
+    url: https://paperform.readme.io/reference/getting-started-1
+- aid: paperform:paperform-papersign-documents-api
+  name: Paperform Papersign Documents API
+  description: The Papersign Documents API from Paperform — 10 operation(s) for papersign documents.
+  humanURL: https://paperform.readme.io/reference/getting-started-1
+  baseURL: https://api.paperform.co
+  tags:
+  - Papersign Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/paperform-papersign-documents-api-openapi.yml
+  - type: Documentation
+    url: https://paperform.readme.io/reference/getting-started-1
+- aid: paperform:paperform-papersign-folders-api
+  name: Paperform Papersign Folders API
+  description: The Papersign Folders API from Paperform — 1 operation(s) for papersign folders.
+  humanURL: https://paperform.readme.io/reference/getting-started-1
+  baseURL: https://api.paperform.co
+  tags:
+  - Papersign Folders
+  properties:
+  - type: OpenAPI
+    url: openapi/paperform-papersign-folders-api-openapi.yml
+  - type: Documentation
+    url: https://paperform.readme.io/reference/getting-started-1
+- aid: paperform:paperform-papersign-spaces-api
+  name: Paperform Papersign Spaces API
+  description: The Papersign Spaces API from Paperform — 1 operation(s) for papersign spaces.
+  humanURL: https://paperform.readme.io/reference/getting-started-1
+  baseURL: https://api.paperform.co
+  tags:
+  - Papersign Spaces
+  properties:
+  - type: OpenAPI
+    url: openapi/paperform-papersign-spaces-api-openapi.yml
+  - type: Documentation
+    url: https://paperform.readme.io/reference/getting-started-1
+- aid: paperform:paperform-papersign-webhooks-api
+  name: Paperform Papersign Webhooks API
+  description: The Papersign Webhooks API from Paperform — 2 operation(s) for papersign webhooks.
+  humanURL: https://paperform.readme.io/reference/getting-started-1
+  baseURL: https://api.paperform.co
+  tags:
+  - Papersign Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/paperform-papersign-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://paperform.readme.io/reference/getting-started-1
+- aid: paperform:paperform-partial-submissions-api
+  name: Paperform Partial Submissions API
+  description: The Partial Submissions API from Paperform — 3 operation(s) for partial submissions.
+  humanURL: https://paperform.readme.io/reference/getting-started-1
+  baseURL: https://api.paperform.co
+  tags:
+  - Partial Submissions
+  properties:
+  - type: OpenAPI
+    url: openapi/paperform-partial-submissions-api-openapi.yml
+  - type: Documentation
+    url: https://paperform.readme.io/reference/getting-started-1
+- aid: paperform:paperform-products-api
+  name: Paperform Products API
+  description: The Products API from Paperform — 4 operation(s) for products.
+  humanURL: https://paperform.readme.io/reference/getting-started-1
+  baseURL: https://api.paperform.co
+  tags:
+  - Products
+  properties:
+  - type: OpenAPI
+    url: openapi/paperform-products-api-openapi.yml
+  - type: Documentation
+    url: https://paperform.readme.io/reference/getting-started-1
+- aid: paperform:paperform-spaces-api
+  name: Paperform Spaces API
+  description: The Spaces API from Paperform — 3 operation(s) for spaces.
+  humanURL: https://paperform.readme.io/reference/getting-started-1
+  baseURL: https://api.paperform.co
+  tags:
+  - Spaces
+  properties:
+  - type: OpenAPI
+    url: openapi/paperform-spaces-api-openapi.yml
+  - type: Documentation
+    url: https://paperform.readme.io/reference/getting-started-1
+- aid: paperform:paperform-submissions-api
+  name: Paperform Submissions API
+  description: The Submissions API from Paperform — 3 operation(s) for submissions.
+  humanURL: https://paperform.readme.io/reference/getting-started-1
+  baseURL: https://api.paperform.co
+  tags:
+  - Submissions
+  properties:
+  - type: OpenAPI
+    url: openapi/paperform-submissions-api-openapi.yml
+  - type: Documentation
+    url: https://paperform.readme.io/reference/getting-started-1
+- aid: paperform:paperform-translations-api
+  name: Paperform Translations API
+  description: The Translations API from Paperform — 2 operation(s) for translations.
+  humanURL: https://paperform.readme.io/reference/getting-started-1
+  baseURL: https://api.paperform.co
+  tags:
+  - Translations
+  properties:
+  - type: OpenAPI
+    url: openapi/paperform-translations-api-openapi.yml
+  - type: Documentation
+    url: https://paperform.readme.io/reference/getting-started-1
+- aid: paperform:paperform-webhooks-api
+  name: Paperform Webhooks API
+  description: The Webhooks API from Paperform — 2 operation(s) for webhooks.
+  humanURL: https://paperform.readme.io/reference/getting-started-1
+  baseURL: https://api.paperform.co
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/paperform-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://paperform.readme.io/reference/getting-started-1
 common:
   - type: DomainSecurity
     url: security/paperform-domain-security.yml

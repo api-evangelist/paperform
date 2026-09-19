@@ -87,6 +87,8 @@ apis:
   humanURL: https://paperform.readme.io/reference/getting-started-1
   baseURL: https://api.paperform.co
   tags:
+  - File
+  tags_raw:
   - Files
   properties:
   - type: OpenAPI
@@ -183,6 +185,8 @@ apis:
   humanURL: https://paperform.readme.io/reference/getting-started-1
   baseURL: https://api.paperform.co
   tags:
+  - Product
+  tags_raw:
   - Products
   properties:
   - type: OpenAPI
@@ -195,6 +199,8 @@ apis:
   humanURL: https://paperform.readme.io/reference/getting-started-1
   baseURL: https://api.paperform.co
   tags:
+  - Space
+  tags_raw:
   - Spaces
   properties:
   - type: OpenAPI
@@ -219,6 +225,8 @@ apis:
   humanURL: https://paperform.readme.io/reference/getting-started-1
   baseURL: https://api.paperform.co
   tags:
+  - Translation
+  tags_raw:
   - Translations
   properties:
   - type: OpenAPI
@@ -231,6 +239,8 @@ apis:
   humanURL: https://paperform.readme.io/reference/getting-started-1
   baseURL: https://api.paperform.co
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI

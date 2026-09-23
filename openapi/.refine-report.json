@@ -1,0 +1,60 @@
+{
+  "provider": "paperform",
+  "sources": [
+    "_original/paperform-openapi.json"
+  ],
+  "outputs": [
+    "paperform-coupons-api-openapi.yml",
+    "paperform-files-api-openapi.yml",
+    "paperform-form-fields-api-openapi.yml",
+    "paperform-forms-api-openapi.yml",
+    "paperform-papersign-documents-api-openapi.yml",
+    "paperform-papersign-folders-api-openapi.yml",
+    "paperform-papersign-spaces-api-openapi.yml",
+    "paperform-papersign-webhooks-api-openapi.yml",
+    "paperform-partial-submissions-api-openapi.yml",
+    "paperform-products-api-openapi.yml",
+    "paperform-spaces-api-openapi.yml",
+    "paperform-submissions-api-openapi.yml",
+    "paperform-translations-api-openapi.yml",
+    "paperform-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "paperform-openapi.json: upgraded openapi 3.0.2 -> OpenAPI 3.2.0",
+    "paperform-openapi.json: declared missing tag: Coupons",
+    "paperform-openapi.json: declared missing tag: Files",
+    "paperform-openapi.json: declared missing tag: Form Fields",
+    "paperform-openapi.json: declared missing tag: Forms",
+    "paperform-openapi.json: declared missing tag: Papersign Documents",
+    "paperform-openapi.json: declared missing tag: Papersign Folders",
+    "paperform-openapi.json: declared missing tag: Papersign Spaces",
+    "paperform-openapi.json: declared missing tag: Papersign Webhooks",
+    "paperform-openapi.json: declared missing tag: Partial Submissions",
+    "paperform-openapi.json: declared missing tag: Products",
+    "paperform-openapi.json: declared missing tag: Spaces",
+    "paperform-openapi.json: declared missing tag: Submissions",
+    "paperform-openapi.json: declared missing tag: Translations",
+    "paperform-openapi.json: declared missing tag: Webhooks",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "paperform-coupons-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "paperform-files-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "paperform-form-fields-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "paperform-forms-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "paperform-papersign-documents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "paperform-papersign-folders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "paperform-papersign-spaces-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "paperform-papersign-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "paperform-partial-submissions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "paperform-products-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "paperform-spaces-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "paperform-submissions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "paperform-translations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "paperform-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

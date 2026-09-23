@@ -1,0 +1,418 @@
+openapi: 3.2.0
+info:
+  version: 1.0.0
+  title: Paperform Coupons API
+  contact:
+    name: Paperform API Support
+    url: https://paperform.co
+    email: support@paperform.co
+servers:
+- url: https://api.paperform.co/v1
+security:
+- bearerAuth: []
+tags:
+- name: Coupons
+paths:
+  /forms/{slug_or_id}/coupons:
+    get:
+      parameters:
+      - $ref: '#/components/parameters/slugOrID'
+      description: 'This endpoint returns a list of coupons for a form that are accessible by the authorized user.
+
+        This feature is available as part of the Standard API.'
+      operationId: listFormCoupons
+      tags:
+      - Coupons
+      responses:
+        '200':
+          description: Successfully returned a list of coupons for a form
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                - properties:
+                    status:
+                      type: string
+                      enum:
+                      - ok
+                    results:
+                      type: object
+                      properties:
+                        coupons:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/CouponWithCode'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/Throttled'
+        5XX:
+          $ref: '#/components/responses/Unexpected'
+      summary: List form coupons
+      x-summary-source: derived
+    post:
+      parameters:
+      - $ref: '#/components/parameters/slugOrID'
+      description: 'This endpoint creates a specific coupon on a form.
+
+        This feature is available as part of the Standard API.'
+      operationId: createFormCoupon
+      tags:
+      - Coupons
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CouponWithCode'
+              required:
+              - code
+      responses:
+        '200':
+          description: 'Successfully created a single coupon with the provided values
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - ok
+                  results:
+                    type: object
+                    properties:
+                      coupon:
+                        $ref: '#/components/schemas/CouponWithCode'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Validation'
+        '429':
+          $ref: '#/components/responses/Throttled'
+        5XX:
+          $ref: '#/components/responses/Unexpected'
+      summary: Create form coupon
+      x-summary-source: derived
+  /forms/{slug_or_id}/coupons/{code}:
+    get:
+      parameters:
+      - $ref: '#/components/parameters/slugOrID'
+      - $ref: '#/components/parameters/couponCode'
+      description: 'This endpoint returns a coupon for a form that is accessible by the authorized user.
+
+        This feature is available as part of the Standard API.'
+      operationId: getFormCoupon
+      tags:
+      - Coupons
+      responses:
+        '200':
+          description: Successfully returned a coupon for a form
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                - properties:
+                    status:
+                      type: string
+                      enum:
+                      - ok
+                    results:
+                      type: object
+                      properties:
+                        coupon:
+                          $ref: '#/components/schemas/CouponWithCode'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/Throttled'
+        5XX:
+          $ref: '#/components/responses/Unexpected'
+      summary: Get form coupon
+      x-summary-source: derived
+    put:
+      parameters:
+      - $ref: '#/components/parameters/slugOrID'
+      - $ref: '#/components/parameters/couponCode'
+      description: 'This endpoint updates a specific coupon by code.
+
+        This feature is available as part of the Standard API.'
+      operationId: updateFormCoupon
+      tags:
+      - Coupons
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CouponWithoutCode'
+      responses:
+        '200':
+          description: 'Successfully updated a single coupon with the provided values
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - ok
+                  results:
+                    type: object
+                    properties:
+                      coupon:
+                        $ref: '#/components/schemas/CouponWithCode'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Validation'
+        '429':
+          $ref: '#/components/responses/Throttled'
+        5XX:
+          $ref: '#/components/responses/Unexpected'
+      summary: Update form coupon
+      x-summary-source: derived
+    delete:
+      parameters:
+      - $ref: '#/components/parameters/slugOrID'
+      - $ref: '#/components/parameters/couponCode'
+      description: 'This endpoint deletes a specific coupon by code.
+
+        This feature is available as part of the Standard API.'
+      operationId: deleteFormCoupon
+      tags:
+      - Coupons
+      responses:
+        '200':
+          description: 'Successfully deleted a single coupon that matched the provided code
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - ok
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/Throttled'
+        5XX:
+          $ref: '#/components/responses/Unexpected'
+      summary: Delete form coupon
+      x-summary-source: derived
+components:
+  schemas:
+    CouponWithoutCode:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Whether the coupon is enabled or not.
+          example: true
+        target:
+          type: string
+          example: price
+          description: The target of the coupon.
+          enum:
+          - price
+          - subscription
+        discountAmount:
+          type: number
+          example: 10
+          description: The discount as an amount.
+          minimum: 0
+        discountPercentage:
+          type: number
+          example: 10
+          maximum: 100
+          minimum: 0
+          description: The discount as a percentage.
+        expiresAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2020-01-01T00:00:00.000Z'
+          description: The date and time when the coupon expires.
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - error
+          example: error
+        message:
+          type: string
+          description: An error message.
+          example: Invalid request
+        details:
+          type: array
+          description: Suggested actions to resolve the error.
+          items:
+            type: string
+    CouponWithCode:
+      type: object
+      allOf:
+      - properties:
+          code:
+            type: string
+            description: The coupon code.
+            example: DISCOUNT1
+      - $ref: '#/components/schemas/CouponWithoutCode'
+  responses:
+    Forbidden:
+      description: Not Permitted
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - permission
+                  description: Not permitted to access requested resource.
+    Unexpected:
+      description: Unexpected Error
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - server_error
+                  description: An unexpected error.
+    Validation:
+      description: Validation Error
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - validation
+                  description: Invalid parameters provided.
+    BadRequest:
+      description: Invalid Request
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - validation
+                  description: Invalid parameters provided.
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - not_found
+                  description: The requested resource was not found.
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - authentication
+                  description: Token not provided for not valid.
+    Throttled:
+      description: Too Many Requests
+      content:
+        text/html:
+          schema:
+            type: string
+            enum:
+            - Too many requests.
+  parameters:
+    couponCode:
+      in: path
+      required: true
+      name: code
+      schema:
+        type: string
+      description: The coupon code to get results for.
+      example: DISCOUNT1
+    slugOrID:
+      in: path
+      name: slug_or_id
+      required: true
+      schema:
+        type: string
+      description: The form's slug, custom slug or ID.
+      example: my-form-slug
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true

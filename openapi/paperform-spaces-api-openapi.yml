@@ -1,0 +1,581 @@
+openapi: 3.2.0
+info:
+  version: 1.0.0
+  title: Paperform Spaces API
+  contact:
+    name: Paperform API Support
+    url: https://paperform.co
+    email: support@paperform.co
+servers:
+- url: https://api.paperform.co/v1
+security:
+- bearerAuth: []
+tags:
+- name: Spaces
+paths:
+  /spaces:
+    get:
+      parameters:
+      - $ref: '#/components/parameters/spaceSearch'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/skip'
+      - $ref: '#/components/parameters/afterId'
+      - $ref: '#/components/parameters/beforeId'
+      - $ref: '#/components/parameters/beforeDate'
+      - $ref: '#/components/parameters/afterDate'
+      - $ref: '#/components/parameters/sort'
+      description: 'This endpoint returns a list of spaces that are accessible by the authorized user.
+
+        Please note that this feature is exclusively available as part of the Business API.'
+      operationId: listSpaces
+      tags:
+      - Spaces
+      responses:
+        '200':
+          description: Successfully returned a list of spaces
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                - properties:
+                    status:
+                      type: string
+                      enum:
+                      - ok
+                    results:
+                      type: object
+                      properties:
+                        spaces:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Space'
+                - $ref: '#/components/schemas/Pagination'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/Throttled'
+        5XX:
+          $ref: '#/components/responses/Unexpected'
+      summary: List spaces
+      x-summary-source: derived
+    post:
+      description: 'This endpoint creates a space.
+
+        Please note that this feature is exclusively available as part of the Business API.'
+      operationId: createSpace
+      tags:
+      - Spaces
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Space'
+              required:
+              - name
+      responses:
+        '200':
+          description: 'Successfully created a space with the provided values
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - ok
+                  results:
+                    type: object
+                    properties:
+                      space:
+                        $ref: '#/components/schemas/Space'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Validation'
+        '429':
+          $ref: '#/components/responses/Throttled'
+        5XX:
+          $ref: '#/components/responses/Unexpected'
+      summary: Create space
+      x-summary-source: derived
+  /spaces/{id}:
+    get:
+      parameters:
+      - $ref: '#/components/parameters/spaceID'
+      description: 'This endpoint returns a spaces by ID.
+
+        Please note that this feature is exclusively available as part of the Business API.'
+      operationId: getSpace
+      tags:
+      - Spaces
+      responses:
+        '200':
+          description: Successfully returned a space
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                - properties:
+                    status:
+                      type: string
+                      enum:
+                      - ok
+                    results:
+                      type: object
+                      properties:
+                        space:
+                          $ref: '#/components/schemas/Space'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/Throttled'
+        5XX:
+          $ref: '#/components/responses/Unexpected'
+      summary: Get space
+      x-summary-source: derived
+    put:
+      parameters:
+      - $ref: '#/components/parameters/spaceID'
+      description: 'This endpoint updates a space.
+
+        Please note that this feature is exclusively available as part of the Business API.'
+      operationId: updateSpace
+      tags:
+      - Spaces
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Space'
+      responses:
+        '200':
+          description: 'Successfully updated a space with the provided values
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - ok
+                  results:
+                    type: object
+                    properties:
+                      space:
+                        $ref: '#/components/schemas/Space'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Validation'
+        '429':
+          $ref: '#/components/responses/Throttled'
+        5XX:
+          $ref: '#/components/responses/Unexpected'
+      summary: Update space
+      x-summary-source: derived
+  /spaces/{id}/forms:
+    get:
+      parameters:
+      - $ref: '#/components/parameters/spaceID'
+      description: 'This endpoint returns a list of forms for a space that are accessible by the authorized user.
+
+        Please note that this feature is exclusively available as part of the Business API.'
+      operationId: getSpaceForms
+      tags:
+      - Spaces
+      responses:
+        '200':
+          description: Successfully returned forms for a space
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                - properties:
+                    status:
+                      type: string
+                      enum:
+                      - ok
+                    results:
+                      type: object
+                      properties:
+                        forms:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/FormFieldCollectionItem'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/Throttled'
+        5XX:
+          $ref: '#/components/responses/Unexpected'
+      summary: Get space forms
+      x-summary-source: derived
+components:
+  parameters:
+    skip:
+      in: query
+      name: skip
+      schema:
+        type: integer
+        default: 0
+      description: Number of results to skip in the result set.
+    sort:
+      in: query
+      name: sort
+      schema:
+        type: string
+        enum:
+        - ASC
+        - DESC
+        default: DESC
+      description: The direction to sort in. Results are sorted by `created_at`, and defaults to `"DESC"`.
+      example: ASC
+    limit:
+      in: query
+      name: limit
+      schema:
+        type: integer
+        maximum: 100
+        default: 20
+      description: The number or results to return.
+    beforeId:
+      in: query
+      name: before_id
+      schema:
+        type: string
+      description: Return results before the provided ID.
+      example: 5d40fdaf174b4c0007043072
+    afterId:
+      in: query
+      name: after_id
+      schema:
+        type: string
+      description: Return results after the provided ID.
+      example: 5d40fdaf174b4c0007043072
+    beforeDate:
+      in: query
+      name: before_date
+      schema:
+        type: string
+        format: date-time
+      description: Return results created on or after this date-time (UTC). Overwritten by `before_id`.
+      example: '2019-06-11T20:36:29Z'
+    spaceID:
+      in: path
+      required: true
+      name: id
+      schema:
+        type: string
+      description: The ID of the space to get results for.
+      example: 5d40fdaf174b4c0007043072
+    afterDate:
+      in: query
+      name: after_date
+      schema:
+        type: string
+        format: date-time
+      description: Return results created before this date (UTC). Overwritten by `after_id`.
+      example: '2019-06-11T20:36:29Z'
+    spaceSearch:
+      in: query
+      name: search
+      schema:
+        type: string
+      description: Search spaces by name.
+      example: John Doe
+  responses:
+    Throttled:
+      description: Too Many Requests
+      content:
+        text/html:
+          schema:
+            type: string
+            enum:
+            - Too many requests.
+    Forbidden:
+      description: Not Permitted
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - permission
+                  description: Not permitted to access requested resource.
+    Validation:
+      description: Validation Error
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - validation
+                  description: Invalid parameters provided.
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - not_found
+                  description: The requested resource was not found.
+    Unexpected:
+      description: Unexpected Error
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - server_error
+                  description: An unexpected error.
+    BadRequest:
+      description: Invalid Request
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - validation
+                  description: Invalid parameters provided.
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - authentication
+                  description: Token not provided for not valid.
+  schemas:
+    FormFieldStandardProperties:
+      type: object
+      description: Other type of form field.
+      properties:
+        key:
+          type: string
+          example: 3jbh8
+          readOnly: true
+          description: The unique key for this field.
+        title:
+          type:
+          - string
+          - 'null'
+          description: The title of this field.
+        description:
+          type:
+          - string
+          - 'null'
+          description: The description of this field.
+        required:
+          type:
+          - boolean
+          - 'null'
+          example: true
+          description: Whether this field is required.
+        custom_key:
+          type:
+          - string
+          - 'null'
+          description: The custom key of this field.
+        placeholder:
+          type:
+          - string
+          - 'null'
+          description: The placeholder for this field.
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: The total number of items.
+          readOnly: true
+          example: 57
+        has_more:
+          description: Whether there are more items.
+          type: boolean
+          example: true
+          readOnly: true
+        limit:
+          description: The limit of items per page.
+          type: integer
+          example: 20
+          default: 20
+        skip:
+          description: The number of items to skip.
+          type: integer
+          default: 0
+          example: 0
+    FieldType:
+      type: string
+      example: text
+      description: The type of field.
+      readOnly: true
+      enum:
+      - text
+      - email
+      - url
+      - yesNo
+      - color
+      - number
+      - phone
+      - address
+      - country
+      - appointment
+      - date
+      - time
+      - scale
+      - slider
+      - choices
+      - dropdown
+      - image
+      - file
+      - signature
+      - price
+      - products
+      - subscriptions
+      - calculations
+      - hidden
+      - rank
+      - rating
+      - matrix
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - error
+          example: error
+        message:
+          type: string
+          description: An error message.
+          example: Invalid request
+        details:
+          type: array
+          description: Suggested actions to resolve the error.
+          items:
+            type: string
+    FormFieldCollectionItem:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/FormFieldStandardProperties'
+      - properties:
+          type:
+            $ref: '#/components/schemas/FieldType'
+    Space:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the space.
+          readOnly: true
+        name:
+          type: string
+          description: The name of the space.
+          example: My Space
+        created_at:
+          type: string
+          format: date-time
+          description: A formatted date-time string in your account timezone indicating the time the space was created.
+          example: '2016-08-25T21:10:29Z'
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          description: A formatted date-time string in your account timezone indicating the time the space was last updated.
+          example: '2016-08-25T21:10:29Z'
+          readOnly: true
+        account_timezone:
+          type: string
+          description: The timezone of your account.
+          example: America/Los_Angeles
+          readOnly: true
+        created_at_utc:
+          type: string
+          format: date-time
+          description: A formatted date-time string in UTC timezone indicating the time the space was created.
+          example: '2016-08-25T21:10:29Z'
+          readOnly: true
+        updated_at_utc:
+          type: string
+          format: date-time
+          description: A formatted date-time string in UTC timezone indicating the time the space was last updated.
+          example: '2016-08-25T21:10:29Z'
+          readOnly: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true

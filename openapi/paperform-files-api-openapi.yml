@@ -1,0 +1,177 @@
+openapi: 3.2.0
+info:
+  version: 1.0.0
+  title: Paperform Files API
+  contact:
+    name: Paperform API Support
+    url: https://paperform.co
+    email: support@paperform.co
+servers:
+- url: https://api.paperform.co/v1
+security:
+- bearerAuth: []
+tags:
+- name: Files
+paths:
+  /files:
+    post:
+      description: 'This endpoint returns a signed URL for a file and a direct access URL for a file.
+
+        This feature is available as part of the Standard API.'
+      operationId: getFileUrls
+      tags:
+      - Files
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FileUrl'
+      responses:
+        '200':
+          description: Successfully returned a signed URL for a file and a direct access URL for a file
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                - properties:
+                    status:
+                      type: string
+                      enum:
+                      - ok
+                    results:
+                      type: object
+                      properties:
+                        file_url:
+                          type: string
+                          description: The signed URL for the file
+                        storage_url:
+                          type: string
+                          description: The direct access URL for the file
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/Throttled'
+        5XX:
+          $ref: '#/components/responses/Unexpected'
+      summary: Get file urls
+      x-summary-source: derived
+components:
+  responses:
+    Forbidden:
+      description: Not Permitted
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - permission
+                  description: Not permitted to access requested resource.
+    Unexpected:
+      description: Unexpected Error
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - server_error
+                  description: An unexpected error.
+    BadRequest:
+      description: Invalid Request
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - validation
+                  description: Invalid parameters provided.
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - not_found
+                  description: The requested resource was not found.
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - authentication
+                  description: Token not provided for not valid.
+    Throttled:
+      description: Too Many Requests
+      content:
+        text/html:
+          schema:
+            type: string
+            enum:
+            - Too many requests.
+  schemas:
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - error
+          example: error
+        message:
+          type: string
+          description: An error message.
+          example: Invalid request
+        details:
+          type: array
+          description: Suggested actions to resolve the error.
+          items:
+            type: string
+    FileUrl:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          description: The URL of the file.
+          example: https://paperform.co/file/s3.amazonaws.com/paperform/u-1/1/2019-04-14/58p3u6p/file.pdf
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true

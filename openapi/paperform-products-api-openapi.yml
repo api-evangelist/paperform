@@ -366,6 +366,14 @@ paths:
       x-summary-source: derived
 components:
   parameters:
+    productSKU:
+      in: path
+      name: product_sku
+      required: true
+      schema:
+        type: string
+      description: The SKU of the product.
+      example: SKU-123
     productSearch:
       in: query
       name: search
@@ -381,71 +389,7 @@ components:
         type: string
       description: The form's slug, custom slug or ID.
       example: my-form-slug
-    productSKU:
-      in: path
-      name: product_sku
-      required: true
-      schema:
-        type: string
-      description: The SKU of the product.
-      example: SKU-123
   responses:
-    Forbidden:
-      description: Not Permitted
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - permission
-                  description: Not permitted to access requested resource.
-    Unexpected:
-      description: Unexpected Error
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - server_error
-                  description: An unexpected error.
-    Validation:
-      description: Validation Error
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - validation
-                  description: Invalid parameters provided.
-    BadRequest:
-      description: Invalid Request
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - validation
-                  description: Invalid parameters provided.
     NotFound:
       description: Not Found
       content:
@@ -460,6 +404,28 @@ components:
                   enum:
                   - not_found
                   description: The requested resource was not found.
+    Throttled:
+      description: Too Many Requests
+      content:
+        text/html:
+          schema:
+            type: string
+            enum:
+            - Too many requests.
+    Validation:
+      description: Validation Error
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - validation
+                  description: Invalid parameters provided.
     Unauthorized:
       description: Unauthorized
       content:
@@ -474,41 +440,49 @@ components:
                   enum:
                   - authentication
                   description: Token not provided for not valid.
-    Throttled:
-      description: Too Many Requests
+    BadRequest:
+      description: Invalid Request
       content:
-        text/html:
+        application/json:
           schema:
-            type: string
-            enum:
-            - Too many requests.
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - validation
+                  description: Invalid parameters provided.
+    Unexpected:
+      description: Unexpected Error
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - server_error
+                  description: An unexpected error.
+    Forbidden:
+      description: Not Permitted
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - permission
+                  description: Not permitted to access requested resource.
   schemas:
-    Error:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - error
-          example: error
-        message:
-          type: string
-          description: An error message.
-          example: Invalid request
-        details:
-          type: array
-          description: Suggested actions to resolve the error.
-          items:
-            type: string
-    ProductQuantity:
-      type: object
-      properties:
-        quantity:
-          type: integer
-          description: The quantity to update the product with.
-          example: 10
-      required:
-      - quantity
     ProductUpdate:
       type: object
       properties:
@@ -575,6 +549,41 @@ components:
             required:
             - url
             - width
+    ProductQuantity:
+      type: object
+      properties:
+        quantity:
+          type: integer
+          description: The quantity to update the product with.
+          example: 10
+      required:
+      - quantity
+    ProductSold:
+      type: object
+      properties:
+        sold:
+          type: integer
+          description: The sold amount for the product.
+          example: 10
+      required:
+      - sold
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - error
+          example: error
+        message:
+          type: string
+          description: An error message.
+          example: Invalid request
+        details:
+          type: array
+          description: Suggested actions to resolve the error.
+          items:
+            type: string
     ProductItem:
       type: object
       allOf:
@@ -589,15 +598,6 @@ components:
       - SKU
       - name
       - price
-    ProductSold:
-      type: object
-      properties:
-        sold:
-          type: integer
-          description: The sold amount for the product.
-          example: 10
-      required:
-      - sold
   securitySchemes:
     bearerAuth:
       type: http

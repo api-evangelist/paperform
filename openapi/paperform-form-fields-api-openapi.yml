@@ -204,294 +204,100 @@ paths:
       summary: Update form field
       x-summary-source: derived
 components:
-  schemas:
-    color:
-      type: object
-      description: Other field type
-      allOf:
-      - $ref: '#/components/schemas/FormFieldStandardProperties'
-      - type: object
-        properties:
-          type:
-            type: string
-            example: color
-            readOnly: true
-            description: The type of field (Color Picker).
-            enum:
-            - color
-    url:
-      type: object
-      description: Other field type
-      allOf:
-      - $ref: '#/components/schemas/FormFieldStandardProperties'
-      - type: object
-        properties:
-          type:
-            type: string
-            example: url
-            readOnly: true
-            description: The type of field (Url).
-            enum:
-            - url
-    yesNo:
-      type: object
-      description: Other field type
-      allOf:
-      - $ref: '#/components/schemas/FormFieldStandardProperties'
-      - type: object
-        properties:
-          type:
-            type: string
-            example: yesNo
-            readOnly: true
-            description: The type of field (Yes/No).
-            enum:
-            - yesNo
-    FieldOptions:
-      type: object
-      properties:
-        options:
-          description: A list of options.
-          type: array
-          example:
-          - Option 1
-          - Option 2
-          - Option 3
-          - etc.
-          items:
-            type: string
-    scale:
-      type: object
-      description: Scale field type.
-      allOf:
-      - $ref: '#/components/schemas/FormFieldStandardProperties'
-      - type: object
-        properties:
-          scale:
-            $ref: '#/components/schemas/FieldOptions'
-          type:
-            type: string
-            example: scale
-            description: The type of field (Scale).
-            readOnly: true
-            enum:
-            - scale
-    FormFieldStandardProperties:
-      type: object
-      description: Other type of form field.
-      properties:
-        key:
-          type: string
-          example: 3jbh8
-          readOnly: true
-          description: The unique key for this field.
-        title:
-          type:
-          - string
-          - 'null'
-          description: The title of this field.
-        description:
-          type:
-          - string
-          - 'null'
-          description: The description of this field.
-        required:
-          type:
-          - boolean
-          - 'null'
-          example: true
-          description: Whether this field is required.
-        custom_key:
-          type:
-          - string
-          - 'null'
-          description: The custom key of this field.
-        placeholder:
-          type:
-          - string
-          - 'null'
-          description: The placeholder for this field.
-    products:
-      type: object
-      description: Products field type.
-      allOf:
-      - $ref: '#/components/schemas/FormFieldStandardProperties'
-      - type: object
-        properties:
-          type:
-            type: string
-            example: products
-            readOnly: true
-            description: The type of field (Product).
-            enum:
-            - products
-          products:
+  responses:
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
             type: object
-            properties:
-              products:
-                type: array
-                description: List of products.
-                items:
-                  $ref: '#/components/schemas/ProductItem'
-    appointment:
-      type: object
-      description: Other field type
-      allOf:
-      - $ref: '#/components/schemas/FormFieldStandardProperties'
-      - type: object
-        properties:
-          type:
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - not_found
+                  description: The requested resource was not found.
+    Throttled:
+      description: Too Many Requests
+      content:
+        text/html:
+          schema:
             type: string
-            example: appointment
-            readOnly: true
-            description: The type of field (Appointment).
             enum:
-            - appointment
-    choices:
-      type: object
-      description: Choices field type.
-      allOf:
-      - $ref: '#/components/schemas/FormFieldStandardProperties'
-      - type: object
-        properties:
-          choices:
-            $ref: '#/components/schemas/FieldOptions'
-          type:
-            type: string
-            example: choices
-            description: The type of field (Multiple Choice).
-            readOnly: true
-            enum:
-            - choices
-    slider:
-      type: object
-      description: Other field type
-      allOf:
-      - $ref: '#/components/schemas/FormFieldStandardProperties'
-      - type: object
-        properties:
-          type:
-            type: string
-            example: slider
-            readOnly: true
-            description: The type of field (Slider).
-            enum:
-            - slider
-    text:
-      type: object
-      description: Other field type
-      allOf:
-      - $ref: '#/components/schemas/FormFieldStandardProperties'
-      - type: object
-        properties:
-          type:
-            type: string
-            example: text
-            readOnly: true
-            description: The type of field (Text).
-            enum:
-            - text
-    email:
-      type: object
-      description: Other field type
-      allOf:
-      - $ref: '#/components/schemas/FormFieldStandardProperties'
-      - type: object
-        properties:
-          type:
-            type: string
-            example: email
-            readOnly: true
-            description: The type of field (Email).
-            enum:
-            - email
-    signature:
-      type: object
-      description: Other field type
-      allOf:
-      - $ref: '#/components/schemas/FormFieldStandardProperties'
-      - type: object
-        properties:
-          type:
-            type: string
-            example: signature
-            readOnly: true
-            description: The type of field (Signature).
-            enum:
-            - signature
-    date:
-      type: object
-      description: Other field type
-      allOf:
-      - $ref: '#/components/schemas/FormFieldStandardProperties'
-      - type: object
-        properties:
-          type:
-            type: string
-            example: date
-            readOnly: true
-            description: The type of field (Date).
-            enum:
-            - date
-    Field:
-      discriminator:
-        propertyName: type
-      oneOf:
-      - $ref: '#/components/schemas/address'
-      - $ref: '#/components/schemas/appointment'
-      - $ref: '#/components/schemas/calculations'
-      - $ref: '#/components/schemas/choices'
-      - $ref: '#/components/schemas/color'
-      - $ref: '#/components/schemas/country'
-      - $ref: '#/components/schemas/date'
-      - $ref: '#/components/schemas/dropdown'
-      - $ref: '#/components/schemas/email'
-      - $ref: '#/components/schemas/file'
-      - $ref: '#/components/schemas/hidden'
-      - $ref: '#/components/schemas/image'
-      - $ref: '#/components/schemas/matrix'
-      - $ref: '#/components/schemas/number'
-      - $ref: '#/components/schemas/phone'
-      - $ref: '#/components/schemas/price'
-      - $ref: '#/components/schemas/products'
-      - $ref: '#/components/schemas/rank'
-      - $ref: '#/components/schemas/rating'
-      - $ref: '#/components/schemas/scale'
-      - $ref: '#/components/schemas/signature'
-      - $ref: '#/components/schemas/slider'
-      - $ref: '#/components/schemas/subscriptions'
-      - $ref: '#/components/schemas/text'
-      - $ref: '#/components/schemas/time'
-      - $ref: '#/components/schemas/url'
-      - $ref: '#/components/schemas/yesNo'
-    subscriptions:
-      type: object
-      description: Other field type
-      allOf:
-      - $ref: '#/components/schemas/FormFieldStandardProperties'
-      - type: object
-        properties:
-          type:
-            type: string
-            example: subscriptions
-            readOnly: true
-            description: The type of field (Subscriptions).
-            enum:
-            - subscriptions
-    country:
-      type: object
-      description: Other field type
-      allOf:
-      - $ref: '#/components/schemas/FormFieldStandardProperties'
-      - type: object
-        properties:
-          type:
-            type: string
-            example: country
-            readOnly: true
-            description: The type of field (Country).
-            enum:
-            - country
+            - Too many requests.
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - authentication
+                  description: Token not provided for not valid.
+    BadRequest:
+      description: Invalid Request
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - validation
+                  description: Invalid parameters provided.
+    Forbidden:
+      description: Not Permitted
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - permission
+                  description: Not permitted to access requested resource.
+    Validation:
+      description: Validation Error
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - validation
+                  description: Invalid parameters provided.
+    Unexpected:
+      description: Unexpected Error
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - server_error
+                  description: An unexpected error.
+  schemas:
     matrix:
       type: object
       description: Matrix field type.
@@ -531,20 +337,128 @@ components:
                 items:
                   type: string
                   maxLength: 50
-    ProductItem:
+    color:
       type: object
+      description: Other field type
       allOf:
-      - $ref: '#/components/schemas/ProductUpdate'
+      - $ref: '#/components/schemas/FormFieldStandardProperties'
       - type: object
         properties:
-          SKU:
+          type:
             type: string
-            description: Product SKU.
-            example: PRODUCT-1
-      required:
-      - SKU
-      - name
-      - price
+            example: color
+            readOnly: true
+            description: The type of field (Color Picker).
+            enum:
+            - color
+    appointment:
+      type: object
+      description: Other field type
+      allOf:
+      - $ref: '#/components/schemas/FormFieldStandardProperties'
+      - type: object
+        properties:
+          type:
+            type: string
+            example: appointment
+            readOnly: true
+            description: The type of field (Appointment).
+            enum:
+            - appointment
+    FormFieldStandardProperties:
+      type: object
+      description: Other type of form field.
+      properties:
+        key:
+          type: string
+          example: 3jbh8
+          readOnly: true
+          description: The unique key for this field.
+        title:
+          type:
+          - string
+          - 'null'
+          description: The title of this field.
+        description:
+          type:
+          - string
+          - 'null'
+          description: The description of this field.
+        required:
+          type:
+          - boolean
+          - 'null'
+          example: true
+          description: Whether this field is required.
+        custom_key:
+          type:
+          - string
+          - 'null'
+          description: The custom key of this field.
+        placeholder:
+          type:
+          - string
+          - 'null'
+          description: The placeholder for this field.
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - error
+          example: error
+        message:
+          type: string
+          description: An error message.
+          example: Invalid request
+        details:
+          type: array
+          description: Suggested actions to resolve the error.
+          items:
+            type: string
+    address:
+      type: object
+      description: Other field type
+      allOf:
+      - $ref: '#/components/schemas/FormFieldStandardProperties'
+      - type: object
+        properties:
+          type:
+            type: string
+            example: address
+            readOnly: true
+            description: The type of field (Address).
+            enum:
+            - address
+    country:
+      type: object
+      description: Other field type
+      allOf:
+      - $ref: '#/components/schemas/FormFieldStandardProperties'
+      - type: object
+        properties:
+          type:
+            type: string
+            example: country
+            readOnly: true
+            description: The type of field (Country).
+            enum:
+            - country
+    subscriptions:
+      type: object
+      description: Other field type
+      allOf:
+      - $ref: '#/components/schemas/FormFieldStandardProperties'
+      - type: object
+        properties:
+          type:
+            type: string
+            example: subscriptions
+            readOnly: true
+            description: The type of field (Subscriptions).
+            enum:
+            - subscriptions
     phone:
       type: object
       description: Other field type
@@ -559,7 +473,14 @@ components:
             description: The type of field (Phone Number).
             enum:
             - phone
-    file:
+    FormFieldCollectionItem:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/FormFieldStandardProperties'
+      - properties:
+          type:
+            $ref: '#/components/schemas/FieldType'
+    date:
       type: object
       description: Other field type
       allOf:
@@ -568,25 +489,11 @@ components:
         properties:
           type:
             type: string
-            example: file
+            example: date
             readOnly: true
-            description: The type of field (File).
+            description: The type of field (Date).
             enum:
-            - file
-    number:
-      type: object
-      description: Other field type
-      allOf:
-      - $ref: '#/components/schemas/FormFieldStandardProperties'
-      - type: object
-        properties:
-          type:
-            type: string
-            example: number
-            readOnly: true
-            description: The type of field (Number).
-            enum:
-            - number
+            - date
     FieldType:
       type: string
       example: text
@@ -620,139 +527,20 @@ components:
       - rank
       - rating
       - matrix
-    Error:
+    ProductItem:
       type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - error
-          example: error
-        message:
-          type: string
-          description: An error message.
-          example: Invalid request
-        details:
-          type: array
-          description: Suggested actions to resolve the error.
-          items:
-            type: string
-    rating:
-      type: object
-      description: Other field type
       allOf:
-      - $ref: '#/components/schemas/FormFieldStandardProperties'
+      - $ref: '#/components/schemas/ProductUpdate'
       - type: object
         properties:
-          type:
+          SKU:
             type: string
-            example: rating
-            readOnly: true
-            description: The type of field (Rating).
-            enum:
-            - rating
-    address:
-      type: object
-      description: Other field type
-      allOf:
-      - $ref: '#/components/schemas/FormFieldStandardProperties'
-      - type: object
-        properties:
-          type:
-            type: string
-            example: address
-            readOnly: true
-            description: The type of field (Address).
-            enum:
-            - address
-    FormFieldCollectionItem:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/FormFieldStandardProperties'
-      - properties:
-          type:
-            $ref: '#/components/schemas/FieldType'
-    hidden:
-      type: object
-      description: Other field type
-      allOf:
-      - $ref: '#/components/schemas/FormFieldStandardProperties'
-      - type: object
-        properties:
-          type:
-            type: string
-            example: hidden
-            readOnly: true
-            description: The type of field (Hidden).
-            enum:
-            - hidden
-    calculations:
-      type: object
-      description: Calculations field type.
-      allOf:
-      - $ref: '#/components/schemas/FormFieldStandardProperties'
-      - type: object
-        properties:
-          type:
-            type: string
-            example: calculations
-            readOnly: true
-            description: The type of field (Calculation).
-            enum:
-            - calculations
-          calculations:
-            type: object
-            properties:
-              calculation:
-                type: string
-                description: The calculation to perform.
-                example: 1 + 1
-    dropdown:
-      type: object
-      description: Dropdown field type.
-      allOf:
-      - $ref: '#/components/schemas/FormFieldStandardProperties'
-      - type: object
-        properties:
-          dropdown:
-            $ref: '#/components/schemas/FieldOptions'
-          type:
-            type: string
-            example: dropdown
-            readOnly: true
-            description: The type of field (Dropdown).
-            enum:
-            - dropdown
-    time:
-      type: object
-      description: Other field type
-      allOf:
-      - $ref: '#/components/schemas/FormFieldStandardProperties'
-      - type: object
-        properties:
-          type:
-            type: string
-            example: time
-            readOnly: true
-            description: The type of field (Time).
-            enum:
-            - time
-    rank:
-      type: object
-      description: Rank field type.
-      allOf:
-      - $ref: '#/components/schemas/FormFieldStandardProperties'
-      - type: object
-        properties:
-          rank:
-            $ref: '#/components/schemas/FieldOptions'
-          type:
-            type: string
-            example: rank
-            description: The type of field (Rank).
-            readOnly: true
-            enum:
-            - rank
+            description: Product SKU.
+            example: PRODUCT-1
+      required:
+      - SKU
+      - name
+      - price
     ProductUpdate:
       type: object
       properties:
@@ -819,6 +607,34 @@ components:
             required:
             - url
             - width
+    email:
+      type: object
+      description: Other field type
+      allOf:
+      - $ref: '#/components/schemas/FormFieldStandardProperties'
+      - type: object
+        properties:
+          type:
+            type: string
+            example: email
+            readOnly: true
+            description: The type of field (Email).
+            enum:
+            - email
+    file:
+      type: object
+      description: Other field type
+      allOf:
+      - $ref: '#/components/schemas/FormFieldStandardProperties'
+      - type: object
+        properties:
+          type:
+            type: string
+            example: file
+            readOnly: true
+            description: The type of field (File).
+            enum:
+            - file
     image:
       type: object
       description: Other field type
@@ -833,6 +649,269 @@ components:
             description: The type of field (Image).
             enum:
             - image
+    calculations:
+      type: object
+      description: Calculations field type.
+      allOf:
+      - $ref: '#/components/schemas/FormFieldStandardProperties'
+      - type: object
+        properties:
+          type:
+            type: string
+            example: calculations
+            readOnly: true
+            description: The type of field (Calculation).
+            enum:
+            - calculations
+          calculations:
+            type: object
+            properties:
+              calculation:
+                type: string
+                description: The calculation to perform.
+                example: 1 + 1
+    rank:
+      type: object
+      description: Rank field type.
+      allOf:
+      - $ref: '#/components/schemas/FormFieldStandardProperties'
+      - type: object
+        properties:
+          rank:
+            $ref: '#/components/schemas/FieldOptions'
+          type:
+            type: string
+            example: rank
+            description: The type of field (Rank).
+            readOnly: true
+            enum:
+            - rank
+    signature:
+      type: object
+      description: Other field type
+      allOf:
+      - $ref: '#/components/schemas/FormFieldStandardProperties'
+      - type: object
+        properties:
+          type:
+            type: string
+            example: signature
+            readOnly: true
+            description: The type of field (Signature).
+            enum:
+            - signature
+    scale:
+      type: object
+      description: Scale field type.
+      allOf:
+      - $ref: '#/components/schemas/FormFieldStandardProperties'
+      - type: object
+        properties:
+          scale:
+            $ref: '#/components/schemas/FieldOptions'
+          type:
+            type: string
+            example: scale
+            description: The type of field (Scale).
+            readOnly: true
+            enum:
+            - scale
+    Field:
+      discriminator:
+        propertyName: type
+      oneOf:
+      - $ref: '#/components/schemas/address'
+      - $ref: '#/components/schemas/appointment'
+      - $ref: '#/components/schemas/calculations'
+      - $ref: '#/components/schemas/choices'
+      - $ref: '#/components/schemas/color'
+      - $ref: '#/components/schemas/country'
+      - $ref: '#/components/schemas/date'
+      - $ref: '#/components/schemas/dropdown'
+      - $ref: '#/components/schemas/email'
+      - $ref: '#/components/schemas/file'
+      - $ref: '#/components/schemas/hidden'
+      - $ref: '#/components/schemas/image'
+      - $ref: '#/components/schemas/matrix'
+      - $ref: '#/components/schemas/number'
+      - $ref: '#/components/schemas/phone'
+      - $ref: '#/components/schemas/price'
+      - $ref: '#/components/schemas/products'
+      - $ref: '#/components/schemas/rank'
+      - $ref: '#/components/schemas/rating'
+      - $ref: '#/components/schemas/scale'
+      - $ref: '#/components/schemas/signature'
+      - $ref: '#/components/schemas/slider'
+      - $ref: '#/components/schemas/subscriptions'
+      - $ref: '#/components/schemas/text'
+      - $ref: '#/components/schemas/time'
+      - $ref: '#/components/schemas/url'
+      - $ref: '#/components/schemas/yesNo'
+    time:
+      type: object
+      description: Other field type
+      allOf:
+      - $ref: '#/components/schemas/FormFieldStandardProperties'
+      - type: object
+        properties:
+          type:
+            type: string
+            example: time
+            readOnly: true
+            description: The type of field (Time).
+            enum:
+            - time
+    slider:
+      type: object
+      description: Other field type
+      allOf:
+      - $ref: '#/components/schemas/FormFieldStandardProperties'
+      - type: object
+        properties:
+          type:
+            type: string
+            example: slider
+            readOnly: true
+            description: The type of field (Slider).
+            enum:
+            - slider
+    choices:
+      type: object
+      description: Choices field type.
+      allOf:
+      - $ref: '#/components/schemas/FormFieldStandardProperties'
+      - type: object
+        properties:
+          choices:
+            $ref: '#/components/schemas/FieldOptions'
+          type:
+            type: string
+            example: choices
+            description: The type of field (Multiple Choice).
+            readOnly: true
+            enum:
+            - choices
+    hidden:
+      type: object
+      description: Other field type
+      allOf:
+      - $ref: '#/components/schemas/FormFieldStandardProperties'
+      - type: object
+        properties:
+          type:
+            type: string
+            example: hidden
+            readOnly: true
+            description: The type of field (Hidden).
+            enum:
+            - hidden
+    FieldOptions:
+      type: object
+      properties:
+        options:
+          description: A list of options.
+          type: array
+          example:
+          - Option 1
+          - Option 2
+          - Option 3
+          - etc.
+          items:
+            type: string
+    products:
+      type: object
+      description: Products field type.
+      allOf:
+      - $ref: '#/components/schemas/FormFieldStandardProperties'
+      - type: object
+        properties:
+          type:
+            type: string
+            example: products
+            readOnly: true
+            description: The type of field (Product).
+            enum:
+            - products
+          products:
+            type: object
+            properties:
+              products:
+                type: array
+                description: List of products.
+                items:
+                  $ref: '#/components/schemas/ProductItem'
+    url:
+      type: object
+      description: Other field type
+      allOf:
+      - $ref: '#/components/schemas/FormFieldStandardProperties'
+      - type: object
+        properties:
+          type:
+            type: string
+            example: url
+            readOnly: true
+            description: The type of field (Url).
+            enum:
+            - url
+    dropdown:
+      type: object
+      description: Dropdown field type.
+      allOf:
+      - $ref: '#/components/schemas/FormFieldStandardProperties'
+      - type: object
+        properties:
+          dropdown:
+            $ref: '#/components/schemas/FieldOptions'
+          type:
+            type: string
+            example: dropdown
+            readOnly: true
+            description: The type of field (Dropdown).
+            enum:
+            - dropdown
+    text:
+      type: object
+      description: Other field type
+      allOf:
+      - $ref: '#/components/schemas/FormFieldStandardProperties'
+      - type: object
+        properties:
+          type:
+            type: string
+            example: text
+            readOnly: true
+            description: The type of field (Text).
+            enum:
+            - text
+    number:
+      type: object
+      description: Other field type
+      allOf:
+      - $ref: '#/components/schemas/FormFieldStandardProperties'
+      - type: object
+        properties:
+          type:
+            type: string
+            example: number
+            readOnly: true
+            description: The type of field (Number).
+            enum:
+            - number
+    rating:
+      type: object
+      description: Other field type
+      allOf:
+      - $ref: '#/components/schemas/FormFieldStandardProperties'
+      - type: object
+        properties:
+          type:
+            type: string
+            example: rating
+            readOnly: true
+            description: The type of field (Rating).
+            enum:
+            - rating
     price:
       type: object
       description: Other field type
@@ -847,100 +926,29 @@ components:
             description: The type of field (Price).
             enum:
             - price
-  responses:
-    Forbidden:
-      description: Not Permitted
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - permission
-                  description: Not permitted to access requested resource.
-    Validation:
-      description: Validation Error
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - validation
-                  description: Invalid parameters provided.
-    NotFound:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - not_found
-                  description: The requested resource was not found.
-    Unexpected:
-      description: Unexpected Error
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - server_error
-                  description: An unexpected error.
-    BadRequest:
-      description: Invalid Request
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - validation
-                  description: Invalid parameters provided.
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - authentication
-                  description: Token not provided for not valid.
-    Throttled:
-      description: Too Many Requests
-      content:
-        text/html:
-          schema:
+    yesNo:
+      type: object
+      description: Other field type
+      allOf:
+      - $ref: '#/components/schemas/FormFieldStandardProperties'
+      - type: object
+        properties:
+          type:
             type: string
+            example: yesNo
+            readOnly: true
+            description: The type of field (Yes/No).
             enum:
-            - Too many requests.
+            - yesNo
   parameters:
+    fieldKey:
+      in: path
+      name: field_key
+      required: true
+      schema:
+        type: string
+      description: The key of the field on the form.
+      example: a1b2c3d4e5
     slugOrID:
       in: path
       name: slug_or_id
@@ -956,14 +964,6 @@ components:
         type: string
       description: Search fields by name.
       example: Name
-    fieldKey:
-      in: path
-      name: field_key
-      required: true
-      schema:
-        type: string
-      description: The key of the field on the form.
-      example: a1b2c3d4e5
   securitySchemes:
     bearerAuth:
       type: http

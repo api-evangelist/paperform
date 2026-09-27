@@ -112,20 +112,113 @@ paths:
       summary: Post papersign folders
       x-summary-source: derived
 components:
+  responses:
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - not_found
+                  description: The requested resource was not found.
+    Throttled:
+      description: Too Many Requests
+      content:
+        text/html:
+          schema:
+            type: string
+            enum:
+            - Too many requests.
+    Validation:
+      description: Validation Error
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - validation
+                  description: Invalid parameters provided.
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - authentication
+                  description: Token not provided for not valid.
+    BadRequest:
+      description: Invalid Request
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - validation
+                  description: Invalid parameters provided.
+    Unexpected:
+      description: Unexpected Error
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - server_error
+                  description: An unexpected error.
+    Forbidden:
+      description: Not Permitted
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - permission
+                  description: Not permitted to access requested resource.
   parameters:
-    papersignSpaceId:
-      in: query
-      name: space_id
-      schema:
-        type: string
-      description: Search folders by space id. Accepts either a space id from `GET /papersign/spaces` or a space id issued before your account moved to unified spaces. Responds `422` if the id is not a positive integer, or names a space that does not exist, has been deleted, or belongs to another team.
-      example: '9999'
     papersignDescendantOfFolderId:
       in: query
       name: folder_id
       schema:
         type: string
       description: Search folders that are descendants of folder id. Accepts either a current folder id or one issued before your account moved to unified spaces. Responds `422` if the id is not a positive integer, or names a folder that does not exist, has been deleted, or belongs to another team.
+      example: '9999'
+    papersignSpaceId:
+      in: query
+      name: space_id
+      schema:
+        type: string
+      description: Search folders by space id. Accepts either a space id from `GET /papersign/spaces` or a space id issued before your account moved to unified spaces. Responds `422` if the id is not a positive integer, or names a space that does not exist, has been deleted, or belongs to another team.
       example: '9999'
     folderSearch:
       in: query
@@ -226,99 +319,6 @@ components:
           description: Suggested actions to resolve the error.
           items:
             type: string
-  responses:
-    Forbidden:
-      description: Not Permitted
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - permission
-                  description: Not permitted to access requested resource.
-    Unexpected:
-      description: Unexpected Error
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - server_error
-                  description: An unexpected error.
-    Validation:
-      description: Validation Error
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - validation
-                  description: Invalid parameters provided.
-    BadRequest:
-      description: Invalid Request
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - validation
-                  description: Invalid parameters provided.
-    NotFound:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - not_found
-                  description: The requested resource was not found.
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - authentication
-                  description: Token not provided for not valid.
-    Throttled:
-      description: Too Many Requests
-      content:
-        text/html:
-          schema:
-            type: string
-            enum:
-            - Too many requests.
   securitySchemes:
     bearerAuth:
       type: http

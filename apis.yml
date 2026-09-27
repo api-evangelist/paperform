@@ -199,9 +199,11 @@ apis:
   humanURL: https://paperform.readme.io/reference/getting-started-1
   baseURL: https://api.paperform.co
   tags:
+  - Spaces
   - Space
   tags_raw:
   - Spaces
+  - Space
   properties:
   - type: OpenAPI
     url: openapi/paperform-spaces-api-openapi.yml

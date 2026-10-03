@@ -197,157 +197,7 @@ paths:
       summary: Delete papersign folder webhooks
       x-summary-source: derived
 components:
-  responses:
-    NotFound:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - not_found
-                  description: The requested resource was not found.
-    Throttled:
-      description: Too Many Requests
-      content:
-        text/html:
-          schema:
-            type: string
-            enum:
-            - Too many requests.
-    Validation:
-      description: Validation Error
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - validation
-                  description: Invalid parameters provided.
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - authentication
-                  description: Token not provided for not valid.
-    BadRequest:
-      description: Invalid Request
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - validation
-                  description: Invalid parameters provided.
-    Unexpected:
-      description: Unexpected Error
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - server_error
-                  description: An unexpected error.
-    Forbidden:
-      description: Not Permitted
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - permission
-                  description: Not permitted to access requested resource.
   schemas:
-    PapersignWebhook:
-      type: object
-      properties:
-        id:
-          type: number
-          format: int64
-          description: The ID of the webhook.
-          example: 5d40fdaf174b4c0007043072
-        target_url:
-          type: string
-          description: The target URL for the webhook.
-          example: https://example.com/webhook
-        scope:
-          type: string
-          enum:
-          - folder.direct_children
-          - folder.all_descendants
-          description: The scope of the webhook.
-          example: folder.direct_children
-        folder:
-          $ref: '#/components/schemas/PapersignFolder'
-        triggers:
-          type: array
-          items:
-            type: string
-            enum:
-            - document.sent
-            - document.completed
-            - document.cancelled
-            - document.rejected
-            - document.expired
-            - signer.notified
-            - signer.viewed
-            - signer.consent_accepted
-            - signer.nominated
-            - signer.signed
-          description: The triggers for the webhook.
-          example:
-          - document.completed
-          - document.cancelled
-    Error:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - error
-          example: error
-        message:
-          type: string
-          description: An error message.
-          example: Invalid request
-        details:
-          type: array
-          description: Suggested actions to resolve the error.
-          items:
-            type: string
     PapersignFolder:
       type: object
       properties:
@@ -414,6 +264,156 @@ components:
             - signer.consent_accepted
             - signer.nominated
             - signer.signed
+    PapersignWebhook:
+      type: object
+      properties:
+        id:
+          type: number
+          format: int64
+          description: The ID of the webhook.
+          example: 5d40fdaf174b4c0007043072
+        target_url:
+          type: string
+          description: The target URL for the webhook.
+          example: https://example.com/webhook
+        scope:
+          type: string
+          enum:
+          - folder.direct_children
+          - folder.all_descendants
+          description: The scope of the webhook.
+          example: folder.direct_children
+        folder:
+          $ref: '#/components/schemas/PapersignFolder'
+        triggers:
+          type: array
+          items:
+            type: string
+            enum:
+            - document.sent
+            - document.completed
+            - document.cancelled
+            - document.rejected
+            - document.expired
+            - signer.notified
+            - signer.viewed
+            - signer.consent_accepted
+            - signer.nominated
+            - signer.signed
+          description: The triggers for the webhook.
+          example:
+          - document.completed
+          - document.cancelled
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - error
+          example: error
+        message:
+          type: string
+          description: An error message.
+          example: Invalid request
+        details:
+          type: array
+          description: Suggested actions to resolve the error.
+          items:
+            type: string
+  responses:
+    Throttled:
+      description: Too Many Requests
+      content:
+        text/html:
+          schema:
+            type: string
+            enum:
+            - Too many requests.
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - authentication
+                  description: Token not provided for not valid.
+    Forbidden:
+      description: Not Permitted
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - permission
+                  description: Not permitted to access requested resource.
+    BadRequest:
+      description: Invalid Request
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - validation
+                  description: Invalid parameters provided.
+    Unexpected:
+      description: Unexpected Error
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - server_error
+                  description: An unexpected error.
+    Validation:
+      description: Validation Error
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - validation
+                  description: Invalid parameters provided.
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - not_found
+                  description: The requested resource was not found.
   parameters:
     papersignWebhookID:
       in: path

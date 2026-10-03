@@ -243,20 +243,6 @@ paths:
       x-summary-source: derived
 components:
   responses:
-    NotFound:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - not_found
-                  description: The requested resource was not found.
     Throttled:
       description: Too Many Requests
       content:
@@ -279,20 +265,6 @@ components:
                   enum:
                   - authentication
                   description: Token not provided for not valid.
-    BadRequest:
-      description: Invalid Request
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - validation
-                  description: Invalid parameters provided.
     Forbidden:
       description: Not Permitted
       content:
@@ -321,6 +293,20 @@ components:
                   enum:
                   - validation
                   description: Invalid parameters provided.
+    BadRequest:
+      description: Invalid Request
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - validation
+                  description: Invalid parameters provided.
     Unexpected:
       description: Unexpected Error
       content:
@@ -335,7 +321,78 @@ components:
                   enum:
                   - server_error
                   description: An unexpected error.
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - not_found
+                  description: The requested resource was not found.
   schemas:
+    Translation:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the translation.
+          example: 5d40fdaf174b4c0007043072
+          readOnly: true
+        title:
+          type: string
+          description: The title of the translation.
+          example: My German Translation
+        language:
+          $ref: '#/components/schemas/Language'
+        mapping:
+          type: object
+          description: The mapping for translations.
+          example:
+            submitting: Submitting...
+        subsets:
+          type: object
+          description: The subsets for the translation.
+        rtl:
+          type: boolean
+          default: false
+          description: Whether the translation is right-to-left.
+          example: false
+        created_at:
+          type: string
+          format: date-time
+          description: A formatted date-time string in your account timezone indicating the time the translation was created.
+          readOnly: true
+          example: '2019-04-14T09:00:00.000Z'
+        updated_at:
+          type: string
+          format: date-time
+          description: A formatted date-time string in your account timezone indicating the time the translation was last updated.
+          readOnly: true
+          example: '2019-04-14T09:00:00.000Z'
+        account_timezone:
+          type: string
+          description: The timezone of your account.
+          readOnly: true
+          example: America/Los_Angeles
+        created_at_utc:
+          type: string
+          format: date-time
+          description: A formatted date-time string in UTC timezone indicating the time the translation was created.
+          readOnly: true
+          example: '2019-04-14T09:00:00.000Z'
+        updated_at_utc:
+          type: string
+          format: date-time
+          description: A formatted date-time string in UTC timezone indicating the time the translation was last updated.
+          readOnly: true
+          example: '2019-04-14T09:00:00.000Z'
     Pagination:
       type: object
       properties:
@@ -564,71 +621,15 @@ components:
       - Yoruba
       - Zhuang, Chuang
       - Zulu
-    Translation:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: The unique identifier of the translation.
-          example: 5d40fdaf174b4c0007043072
-          readOnly: true
-        title:
-          type: string
-          description: The title of the translation.
-          example: My German Translation
-        language:
-          $ref: '#/components/schemas/Language'
-        mapping:
-          type: object
-          description: The mapping for translations.
-          example:
-            submitting: Submitting...
-        subsets:
-          type: object
-          description: The subsets for the translation.
-        rtl:
-          type: boolean
-          default: false
-          description: Whether the translation is right-to-left.
-          example: false
-        created_at:
-          type: string
-          format: date-time
-          description: A formatted date-time string in your account timezone indicating the time the translation was created.
-          readOnly: true
-          example: '2019-04-14T09:00:00.000Z'
-        updated_at:
-          type: string
-          format: date-time
-          description: A formatted date-time string in your account timezone indicating the time the translation was last updated.
-          readOnly: true
-          example: '2019-04-14T09:00:00.000Z'
-        account_timezone:
-          type: string
-          description: The timezone of your account.
-          readOnly: true
-          example: America/Los_Angeles
-        created_at_utc:
-          type: string
-          format: date-time
-          description: A formatted date-time string in UTC timezone indicating the time the translation was created.
-          readOnly: true
-          example: '2019-04-14T09:00:00.000Z'
-        updated_at_utc:
-          type: string
-          format: date-time
-          description: A formatted date-time string in UTC timezone indicating the time the translation was last updated.
-          readOnly: true
-          example: '2019-04-14T09:00:00.000Z'
   parameters:
-    beforeId:
+    beforeDate:
       in: query
-      name: before_id
+      name: before_date
       schema:
         type: string
-      description: Return results before the provided ID.
-      example: 5d40fdaf174b4c0007043072
+        format: date-time
+      description: Return results created on or after this date-time (UTC). Overwritten by `before_id`.
+      example: '2019-06-11T20:36:29Z'
     afterDate:
       in: query
       name: after_date
@@ -644,22 +645,6 @@ components:
         type: integer
         default: 0
       description: Number of results to skip in the result set.
-    beforeDate:
-      in: query
-      name: before_date
-      schema:
-        type: string
-        format: date-time
-      description: Return results created on or after this date-time (UTC). Overwritten by `before_id`.
-      example: '2019-06-11T20:36:29Z'
-    limit:
-      in: query
-      name: limit
-      schema:
-        type: integer
-        maximum: 100
-        default: 20
-      description: The number or results to return.
     sort:
       in: query
       name: sort
@@ -671,6 +656,28 @@ components:
         default: DESC
       description: The direction to sort in. Results are sorted by `created_at`, and defaults to `"DESC"`.
       example: ASC
+    limit:
+      in: query
+      name: limit
+      schema:
+        type: integer
+        maximum: 100
+        default: 20
+      description: The number or results to return.
+    afterId:
+      in: query
+      name: after_id
+      schema:
+        type: string
+      description: Return results after the provided ID.
+      example: 5d40fdaf174b4c0007043072
+    beforeId:
+      in: query
+      name: before_id
+      schema:
+        type: string
+      description: Return results before the provided ID.
+      example: 5d40fdaf174b4c0007043072
     translationID:
       in: path
       required: true
@@ -678,13 +685,6 @@ components:
       schema:
         type: string
       description: The ID of the translation to get results for.
-      example: 5d40fdaf174b4c0007043072
-    afterId:
-      in: query
-      name: after_id
-      schema:
-        type: string
-      description: Return results after the provided ID.
       example: 5d40fdaf174b4c0007043072
   securitySchemes:
     bearerAuth:

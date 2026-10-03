@@ -241,20 +241,6 @@ paths:
       x-summary-source: derived
 components:
   responses:
-    NotFound:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - not_found
-                  description: The requested resource was not found.
     Throttled:
       description: Too Many Requests
       content:
@@ -263,20 +249,6 @@ components:
             type: string
             enum:
             - Too many requests.
-    Validation:
-      description: Validation Error
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - validation
-                  description: Invalid parameters provided.
     Unauthorized:
       description: Unauthorized
       content:
@@ -291,6 +263,20 @@ components:
                   enum:
                   - authentication
                   description: Token not provided for not valid.
+    Forbidden:
+      description: Not Permitted
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - permission
+                  description: Not permitted to access requested resource.
     BadRequest:
       description: Invalid Request
       content:
@@ -319,8 +305,8 @@ components:
                   enum:
                   - server_error
                   description: An unexpected error.
-    Forbidden:
-      description: Not Permitted
+    Validation:
+      description: Validation Error
       content:
         application/json:
           schema:
@@ -331,18 +317,40 @@ components:
                 error_type:
                   type: string
                   enum:
-                  - permission
-                  description: Not permitted to access requested resource.
+                  - validation
+                  description: Invalid parameters provided.
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - not_found
+                  description: The requested resource was not found.
+  parameters:
+    couponCode:
+      in: path
+      required: true
+      name: code
+      schema:
+        type: string
+      description: The coupon code to get results for.
+      example: DISCOUNT1
+    slugOrID:
+      in: path
+      name: slug_or_id
+      required: true
+      schema:
+        type: string
+      description: The form's slug, custom slug or ID.
+      example: my-form-slug
   schemas:
-    CouponWithCode:
-      type: object
-      allOf:
-      - properties:
-          code:
-            type: string
-            description: The coupon code.
-            example: DISCOUNT1
-      - $ref: '#/components/schemas/CouponWithoutCode'
     CouponWithoutCode:
       type: object
       properties:
@@ -375,6 +383,15 @@ components:
           format: date-time
           example: '2020-01-01T00:00:00.000Z'
           description: The date and time when the coupon expires.
+    CouponWithCode:
+      type: object
+      allOf:
+      - properties:
+          code:
+            type: string
+            description: The coupon code.
+            example: DISCOUNT1
+      - $ref: '#/components/schemas/CouponWithoutCode'
     Error:
       type: object
       properties:
@@ -392,23 +409,6 @@ components:
           description: Suggested actions to resolve the error.
           items:
             type: string
-  parameters:
-    couponCode:
-      in: path
-      required: true
-      name: code
-      schema:
-        type: string
-      description: The coupon code to get results for.
-      example: DISCOUNT1
-    slugOrID:
-      in: path
-      name: slug_or_id
-      required: true
-      schema:
-        type: string
-      description: The form's slug, custom slug or ID.
-      example: my-form-slug
   securitySchemes:
     bearerAuth:
       type: http

@@ -71,20 +71,6 @@ paths:
       x-summary-source: derived
 components:
   responses:
-    NotFound:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - not_found
-                  description: The requested resource was not found.
     Throttled:
       description: Too Many Requests
       content:
@@ -93,20 +79,6 @@ components:
             type: string
             enum:
             - Too many requests.
-    Validation:
-      description: Validation Error
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - validation
-                  description: Invalid parameters provided.
     Unauthorized:
       description: Unauthorized
       content:
@@ -121,20 +93,6 @@ components:
                   enum:
                   - authentication
                   description: Token not provided for not valid.
-    BadRequest:
-      description: Invalid Request
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - validation
-                  description: Invalid parameters provided.
     Unexpected:
       description: Unexpected Error
       content:
@@ -163,6 +121,56 @@ components:
                   enum:
                   - permission
                   description: Not permitted to access requested resource.
+    BadRequest:
+      description: Invalid Request
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - validation
+                  description: Invalid parameters provided.
+    Validation:
+      description: Validation Error
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - validation
+                  description: Invalid parameters provided.
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - not_found
+                  description: The requested resource was not found.
+  parameters:
+    spaceSearch:
+      in: query
+      name: search
+      schema:
+        type: string
+      description: Search spaces by name.
+      example: John Doe
   schemas:
     Pagination:
       type: object
@@ -226,14 +234,6 @@ components:
           description: Suggested actions to resolve the error.
           items:
             type: string
-  parameters:
-    spaceSearch:
-      in: query
-      name: search
-      schema:
-        type: string
-      description: Search spaces by name.
-      example: John Doe
   securitySchemes:
     bearerAuth:
       type: http

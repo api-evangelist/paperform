@@ -365,124 +365,25 @@ paths:
       summary: Update form product sold
       x-summary-source: derived
 components:
-  parameters:
-    productSKU:
-      in: path
-      name: product_sku
-      required: true
-      schema:
-        type: string
-      description: The SKU of the product.
-      example: SKU-123
-    productSearch:
-      in: query
-      name: search
-      schema:
-        type: string
-      description: Search products by name.
-      example: chips
-    slugOrID:
-      in: path
-      name: slug_or_id
-      required: true
-      schema:
-        type: string
-      description: The form's slug, custom slug or ID.
-      example: my-form-slug
-  responses:
-    NotFound:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - not_found
-                  description: The requested resource was not found.
-    Throttled:
-      description: Too Many Requests
-      content:
-        text/html:
-          schema:
-            type: string
-            enum:
-            - Too many requests.
-    Validation:
-      description: Validation Error
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - validation
-                  description: Invalid parameters provided.
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - authentication
-                  description: Token not provided for not valid.
-    BadRequest:
-      description: Invalid Request
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - validation
-                  description: Invalid parameters provided.
-    Unexpected:
-      description: Unexpected Error
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - server_error
-                  description: An unexpected error.
-    Forbidden:
-      description: Not Permitted
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - permission
-                  description: Not permitted to access requested resource.
   schemas:
+    ProductSold:
+      type: object
+      properties:
+        sold:
+          type: integer
+          description: The sold amount for the product.
+          example: 10
+      required:
+      - sold
+    ProductQuantity:
+      type: object
+      properties:
+        quantity:
+          type: integer
+          description: The quantity to update the product with.
+          example: 10
+      required:
+      - quantity
     ProductUpdate:
       type: object
       properties:
@@ -549,24 +450,20 @@ components:
             required:
             - url
             - width
-    ProductQuantity:
+    ProductItem:
       type: object
-      properties:
-        quantity:
-          type: integer
-          description: The quantity to update the product with.
-          example: 10
+      allOf:
+      - $ref: '#/components/schemas/ProductUpdate'
+      - type: object
+        properties:
+          SKU:
+            type: string
+            description: Product SKU.
+            example: PRODUCT-1
       required:
-      - quantity
-    ProductSold:
-      type: object
-      properties:
-        sold:
-          type: integer
-          description: The sold amount for the product.
-          example: 10
-      required:
-      - sold
+      - SKU
+      - name
+      - price
     Error:
       type: object
       properties:
@@ -584,20 +481,123 @@ components:
           description: Suggested actions to resolve the error.
           items:
             type: string
-    ProductItem:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/ProductUpdate'
-      - type: object
-        properties:
-          SKU:
+  responses:
+    Throttled:
+      description: Too Many Requests
+      content:
+        text/html:
+          schema:
             type: string
-            description: Product SKU.
-            example: PRODUCT-1
-      required:
-      - SKU
-      - name
-      - price
+            enum:
+            - Too many requests.
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - authentication
+                  description: Token not provided for not valid.
+    BadRequest:
+      description: Invalid Request
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - validation
+                  description: Invalid parameters provided.
+    Forbidden:
+      description: Not Permitted
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - permission
+                  description: Not permitted to access requested resource.
+    Unexpected:
+      description: Unexpected Error
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - server_error
+                  description: An unexpected error.
+    Validation:
+      description: Validation Error
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - validation
+                  description: Invalid parameters provided.
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - not_found
+                  description: The requested resource was not found.
+  parameters:
+    slugOrID:
+      in: path
+      name: slug_or_id
+      required: true
+      schema:
+        type: string
+      description: The form's slug, custom slug or ID.
+      example: my-form-slug
+    productSearch:
+      in: query
+      name: search
+      schema:
+        type: string
+      description: Search products by name.
+      example: chips
+    productSKU:
+      in: path
+      name: product_sku
+      required: true
+      schema:
+        type: string
+      description: The SKU of the product.
+      example: SKU-123
   securitySchemes:
     bearerAuth:
       type: http

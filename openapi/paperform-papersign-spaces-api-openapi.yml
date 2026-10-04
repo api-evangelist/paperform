@@ -70,107 +70,6 @@ paths:
       summary: List papersign spaces
       x-summary-source: derived
 components:
-  responses:
-    Throttled:
-      description: Too Many Requests
-      content:
-        text/html:
-          schema:
-            type: string
-            enum:
-            - Too many requests.
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - authentication
-                  description: Token not provided for not valid.
-    Unexpected:
-      description: Unexpected Error
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - server_error
-                  description: An unexpected error.
-    Forbidden:
-      description: Not Permitted
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - permission
-                  description: Not permitted to access requested resource.
-    BadRequest:
-      description: Invalid Request
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - validation
-                  description: Invalid parameters provided.
-    Validation:
-      description: Validation Error
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - validation
-                  description: Invalid parameters provided.
-    NotFound:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - not_found
-                  description: The requested resource was not found.
-  parameters:
-    spaceSearch:
-      in: query
-      name: search
-      schema:
-        type: string
-      description: Search spaces by name.
-      example: John Doe
   schemas:
     Pagination:
       type: object
@@ -234,6 +133,107 @@ components:
           description: Suggested actions to resolve the error.
           items:
             type: string
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - authentication
+                  description: Token not provided for not valid.
+    Throttled:
+      description: Too Many Requests
+      content:
+        text/html:
+          schema:
+            type: string
+            enum:
+            - Too many requests.
+    Unexpected:
+      description: Unexpected Error
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - server_error
+                  description: An unexpected error.
+    BadRequest:
+      description: Invalid Request
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - validation
+                  description: Invalid parameters provided.
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - not_found
+                  description: The requested resource was not found.
+    Forbidden:
+      description: Not Permitted
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - permission
+                  description: Not permitted to access requested resource.
+    Validation:
+      description: Validation Error
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - validation
+                  description: Invalid parameters provided.
+  parameters:
+    spaceSearch:
+      in: query
+      name: search
+      schema:
+        type: string
+      description: Search spaces by name.
+      example: John Doe
   securitySchemes:
     bearerAuth:
       type: http

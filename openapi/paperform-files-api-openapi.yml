@@ -64,14 +64,6 @@ paths:
       x-summary-source: derived
 components:
   responses:
-    Throttled:
-      description: Too Many Requests
-      content:
-        text/html:
-          schema:
-            type: string
-            enum:
-            - Too many requests.
     Unauthorized:
       description: Unauthorized
       content:
@@ -86,34 +78,14 @@ components:
                   enum:
                   - authentication
                   description: Token not provided for not valid.
-    Forbidden:
-      description: Not Permitted
+    Throttled:
+      description: Too Many Requests
       content:
-        application/json:
+        text/html:
           schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - permission
-                  description: Not permitted to access requested resource.
-    BadRequest:
-      description: Invalid Request
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - validation
-                  description: Invalid parameters provided.
+            type: string
+            enum:
+            - Too many requests.
     Unexpected:
       description: Unexpected Error
       content:
@@ -128,6 +100,20 @@ components:
                   enum:
                   - server_error
                   description: An unexpected error.
+    BadRequest:
+      description: Invalid Request
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - validation
+                  description: Invalid parameters provided.
     NotFound:
       description: Not Found
       content:
@@ -142,6 +128,20 @@ components:
                   enum:
                   - not_found
                   description: The requested resource was not found.
+    Forbidden:
+      description: Not Permitted
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - permission
+                  description: Not permitted to access requested resource.
   schemas:
     FileUrl:
       type: object

@@ -198,72 +198,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    PapersignFolder:
-      type: object
-      properties:
-        id:
-          type: number
-          format: int32
-          readOnly: true
-          description: The unique identifier of the folder.
-          example: 9999
-        name:
-          type: string
-          description: The name of the document.
-          example: My Document
-        parent_id:
-          type:
-          - number
-          - 'null'
-          format: int32
-          description: The unique identifier of the parent folder.
-          example: 9999
-        space_id:
-          type: number
-          format: int32
-          description: The unique identifier of the space.
-          example: 8888
-      required:
-      - name
-    PapersignWebhookUpdate:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the webhook.
-          example: My Webhook
-        target_url:
-          type: string
-          format: uri
-          description: The target URL for the webhook.
-          example: https://example.com/webhook
-        scope:
-          type: string
-          enum:
-          - folder.direct_children
-          - folder.all_descendants
-          description: The scope of the webhook.
-          example: folder.direct_children
-        triggers:
-          type: array
-          minItems: 1
-          description: The triggers for the webhook.
-          example:
-          - document.created
-          - document.updated
-          items:
-            type: string
-            enum:
-            - document.sent
-            - document.completed
-            - document.cancelled
-            - document.rejected
-            - document.expired
-            - signer.notified
-            - signer.viewed
-            - signer.consent_accepted
-            - signer.nominated
-            - signer.signed
     PapersignWebhook:
       type: object
       properties:
@@ -304,6 +238,72 @@ components:
           example:
           - document.completed
           - document.cancelled
+    PapersignWebhookUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the webhook.
+          example: My Webhook
+        target_url:
+          type: string
+          format: uri
+          description: The target URL for the webhook.
+          example: https://example.com/webhook
+        scope:
+          type: string
+          enum:
+          - folder.direct_children
+          - folder.all_descendants
+          description: The scope of the webhook.
+          example: folder.direct_children
+        triggers:
+          type: array
+          minItems: 1
+          description: The triggers for the webhook.
+          example:
+          - document.created
+          - document.updated
+          items:
+            type: string
+            enum:
+            - document.sent
+            - document.completed
+            - document.cancelled
+            - document.rejected
+            - document.expired
+            - signer.notified
+            - signer.viewed
+            - signer.consent_accepted
+            - signer.nominated
+            - signer.signed
+    PapersignFolder:
+      type: object
+      properties:
+        id:
+          type: number
+          format: int32
+          readOnly: true
+          description: The unique identifier of the folder.
+          example: 9999
+        name:
+          type: string
+          description: The name of the document.
+          example: My Document
+        parent_id:
+          type:
+          - number
+          - 'null'
+          format: int32
+          description: The unique identifier of the parent folder.
+          example: 9999
+        space_id:
+          type: number
+          format: int32
+          description: The unique identifier of the space.
+          example: 8888
+      required:
+      - name
     Error:
       type: object
       properties:
@@ -344,34 +344,6 @@ components:
                   enum:
                   - authentication
                   description: Token not provided for not valid.
-    Forbidden:
-      description: Not Permitted
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - permission
-                  description: Not permitted to access requested resource.
-    BadRequest:
-      description: Invalid Request
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - validation
-                  description: Invalid parameters provided.
     Unexpected:
       description: Unexpected Error
       content:
@@ -386,8 +358,8 @@ components:
                   enum:
                   - server_error
                   description: An unexpected error.
-    Validation:
-      description: Validation Error
+    BadRequest:
+      description: Invalid Request
       content:
         application/json:
           schema:
@@ -414,15 +386,35 @@ components:
                   enum:
                   - not_found
                   description: The requested resource was not found.
+    Forbidden:
+      description: Not Permitted
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - permission
+                  description: Not permitted to access requested resource.
+    Validation:
+      description: Validation Error
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - validation
+                  description: Invalid parameters provided.
   parameters:
-    papersignWebhookID:
-      in: path
-      required: true
-      name: id
-      schema:
-        type: number
-      description: The ID of the Papersign webhook.
-      example: 9999
     papersignFolderID:
       in: path
       required: true
@@ -431,6 +423,14 @@ components:
         type: number
       description: The ID of the Papersign folder.
       example: '9999'
+    papersignWebhookID:
+      in: path
+      required: true
+      name: id
+      schema:
+        type: number
+      description: The ID of the Papersign webhook.
+      example: 9999
   securitySchemes:
     bearerAuth:
       type: http

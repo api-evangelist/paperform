@@ -241,14 +241,6 @@ paths:
       x-summary-source: derived
 components:
   responses:
-    Throttled:
-      description: Too Many Requests
-      content:
-        text/html:
-          schema:
-            type: string
-            enum:
-            - Too many requests.
     Unauthorized:
       description: Unauthorized
       content:
@@ -263,34 +255,14 @@ components:
                   enum:
                   - authentication
                   description: Token not provided for not valid.
-    Forbidden:
-      description: Not Permitted
+    Throttled:
+      description: Too Many Requests
       content:
-        application/json:
+        text/html:
           schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - permission
-                  description: Not permitted to access requested resource.
-    BadRequest:
-      description: Invalid Request
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - validation
-                  description: Invalid parameters provided.
+            type: string
+            enum:
+            - Too many requests.
     Unexpected:
       description: Unexpected Error
       content:
@@ -305,8 +277,8 @@ components:
                   enum:
                   - server_error
                   description: An unexpected error.
-    Validation:
-      description: Validation Error
+    BadRequest:
+      description: Invalid Request
       content:
         application/json:
           schema:
@@ -333,15 +305,35 @@ components:
                   enum:
                   - not_found
                   description: The requested resource was not found.
+    Forbidden:
+      description: Not Permitted
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - permission
+                  description: Not permitted to access requested resource.
+    Validation:
+      description: Validation Error
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - validation
+                  description: Invalid parameters provided.
   parameters:
-    couponCode:
-      in: path
-      required: true
-      name: code
-      schema:
-        type: string
-      description: The coupon code to get results for.
-      example: DISCOUNT1
     slugOrID:
       in: path
       name: slug_or_id
@@ -350,7 +342,32 @@ components:
         type: string
       description: The form's slug, custom slug or ID.
       example: my-form-slug
+    couponCode:
+      in: path
+      required: true
+      name: code
+      schema:
+        type: string
+      description: The coupon code to get results for.
+      example: DISCOUNT1
   schemas:
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - error
+          example: error
+        message:
+          type: string
+          description: An error message.
+          example: Invalid request
+        details:
+          type: array
+          description: Suggested actions to resolve the error.
+          items:
+            type: string
     CouponWithoutCode:
       type: object
       properties:
@@ -392,23 +409,6 @@ components:
             description: The coupon code.
             example: DISCOUNT1
       - $ref: '#/components/schemas/CouponWithoutCode'
-    Error:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - error
-          example: error
-        message:
-          type: string
-          description: An error message.
-          example: Invalid request
-        details:
-          type: array
-          description: Suggested actions to resolve the error.
-          items:
-            type: string
   securitySchemes:
     bearerAuth:
       type: http

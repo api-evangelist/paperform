@@ -243,14 +243,6 @@ paths:
       x-summary-source: derived
 components:
   responses:
-    Throttled:
-      description: Too Many Requests
-      content:
-        text/html:
-          schema:
-            type: string
-            enum:
-            - Too many requests.
     Unauthorized:
       description: Unauthorized
       content:
@@ -265,34 +257,6 @@ components:
                   enum:
                   - authentication
                   description: Token not provided for not valid.
-    Forbidden:
-      description: Not Permitted
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - permission
-                  description: Not permitted to access requested resource.
-    Validation:
-      description: Validation Error
-      content:
-        application/json:
-          schema:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/Error'
-            - properties:
-                error_type:
-                  type: string
-                  enum:
-                  - validation
-                  description: Invalid parameters provided.
     BadRequest:
       description: Invalid Request
       content:
@@ -307,8 +271,8 @@ components:
                   enum:
                   - validation
                   description: Invalid parameters provided.
-    Unexpected:
-      description: Unexpected Error
+    Validation:
+      description: Validation Error
       content:
         application/json:
           schema:
@@ -319,8 +283,16 @@ components:
                 error_type:
                   type: string
                   enum:
-                  - server_error
-                  description: An unexpected error.
+                  - validation
+                  description: Invalid parameters provided.
+    Throttled:
+      description: Too Many Requests
+      content:
+        text/html:
+          schema:
+            type: string
+            enum:
+            - Too many requests.
     NotFound:
       description: Not Found
       content:
@@ -335,7 +307,75 @@ components:
                   enum:
                   - not_found
                   description: The requested resource was not found.
+    Unexpected:
+      description: Unexpected Error
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - server_error
+                  description: An unexpected error.
+    Forbidden:
+      description: Not Permitted
+      content:
+        application/json:
+          schema:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/Error'
+            - properties:
+                error_type:
+                  type: string
+                  enum:
+                  - permission
+                  description: Not permitted to access requested resource.
   schemas:
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - error
+          example: error
+        message:
+          type: string
+          description: An error message.
+          example: Invalid request
+        details:
+          type: array
+          description: Suggested actions to resolve the error.
+          items:
+            type: string
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: The total number of items.
+          readOnly: true
+          example: 57
+        has_more:
+          description: Whether there are more items.
+          type: boolean
+          example: true
+          readOnly: true
+        limit:
+          description: The limit of items per page.
+          type: integer
+          example: 20
+          default: 20
+        skip:
+          description: The number of items to skip.
+          type: integer
+          default: 0
+          example: 0
     Translation:
       type: object
       properties:
@@ -393,46 +433,6 @@ components:
           description: A formatted date-time string in UTC timezone indicating the time the translation was last updated.
           readOnly: true
           example: '2019-04-14T09:00:00.000Z'
-    Pagination:
-      type: object
-      properties:
-        total:
-          type: integer
-          description: The total number of items.
-          readOnly: true
-          example: 57
-        has_more:
-          description: Whether there are more items.
-          type: boolean
-          example: true
-          readOnly: true
-        limit:
-          description: The limit of items per page.
-          type: integer
-          example: 20
-          default: 20
-        skip:
-          description: The number of items to skip.
-          type: integer
-          default: 0
-          example: 0
-    Error:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - error
-          example: error
-        message:
-          type: string
-          description: An error message.
-          example: Invalid request
-        details:
-          type: array
-          description: Suggested actions to resolve the error.
-          items:
-            type: string
     Language:
       type: string
       example: German
@@ -622,14 +622,20 @@ components:
       - Zhuang, Chuang
       - Zulu
   parameters:
-    beforeDate:
+    skip:
       in: query
-      name: before_date
+      name: skip
+      schema:
+        type: integer
+        default: 0
+      description: Number of results to skip in the result set.
+    afterId:
+      in: query
+      name: after_id
       schema:
         type: string
-        format: date-time
-      description: Return results created on or after this date-time (UTC). Overwritten by `before_id`.
-      example: '2019-06-11T20:36:29Z'
+      description: Return results after the provided ID.
+      example: 5d40fdaf174b4c0007043072
     afterDate:
       in: query
       name: after_date
@@ -638,13 +644,22 @@ components:
         format: date-time
       description: Return results created before this date (UTC). Overwritten by `after_id`.
       example: '2019-06-11T20:36:29Z'
-    skip:
+    limit:
       in: query
-      name: skip
+      name: limit
       schema:
         type: integer
-        default: 0
-      description: Number of results to skip in the result set.
+        maximum: 100
+        default: 20
+      description: The number or results to return.
+    beforeDate:
+      in: query
+      name: before_date
+      schema:
+        type: string
+        format: date-time
+      description: Return results created on or after this date-time (UTC). Overwritten by `before_id`.
+      example: '2019-06-11T20:36:29Z'
     sort:
       in: query
       name: sort
@@ -656,21 +671,6 @@ components:
         default: DESC
       description: The direction to sort in. Results are sorted by `created_at`, and defaults to `"DESC"`.
       example: ASC
-    limit:
-      in: query
-      name: limit
-      schema:
-        type: integer
-        maximum: 100
-        default: 20
-      description: The number or results to return.
-    afterId:
-      in: query
-      name: after_id
-      schema:
-        type: string
-      description: Return results after the provided ID.
-      example: 5d40fdaf174b4c0007043072
     beforeId:
       in: query
       name: before_id

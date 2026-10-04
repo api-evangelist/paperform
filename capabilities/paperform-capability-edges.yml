@@ -1,0 +1,43 @@
+slug: paperform
+provider: Paperform
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Papersign Webhooks
+  spec_file: paperform-papersign-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.8
+  evidence: POST /papersign/folders/{id}/webhooks  postPapersignFolderWebhooks  Post papersign folder
+    webhooks; schema PapersignWebhook
+  reason: CRUD lifecycle over outbound webhook subscriptions exposed to API consumers — matches Webhook
+    & Event Subscription Management in the developer platform capability.
+- tag: Webhooks
+  spec_file: paperform-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.8
+  evidence: POST /forms/{slug_or_id}/webhooks  createFormWebhook  Create form webhook
+  reason: Full lifecycle (create/get/update/delete) of outbound webhook subscriptions for form events
+    — Webhook & Event Subscription Management.
+- tag: Coupons
+  spec_file: paperform-coupons-api-openapi.yml
+  capability_id: BC-440.30
+  capability_id_l1: BC-440
+  capability_name: Discount & Promotion Management
+  confidence: 0.72
+  evidence: '"Create form coupon", "Get form coupon" with schemas "CouponWithCode, CouponWithoutCode"'
+  reason: Coupon codes applied to paid form products are discount/promotion instruments, so the surface
+    manages discount definitions. Scope is narrow (per-form coupon codes), hence moderate confidence.

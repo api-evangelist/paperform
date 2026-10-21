@@ -1,39 +1,5 @@
 generated: '2026-10-15'
 edges:
-- partner_name: WordPress (own)
-  partner: wordpress
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://wordpress.org/plugins/paperform-form-builder/
-  mirror_of: wordpress/integrations/wordpress-integration-edges.yml
-  apps:
-  - Paperform Form Builder – Contact Forms, Ecommerce And Product Pages, Surveys
-  listing_count: 1
-  detected: '2026-10-15'
-  detected_by: mirror-platform-listings.py
-  category: WordPress plugin
-- partner_name: Zoom (own)
-  partner: zoom
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://marketplace.zoom.us/apps/ixt7WOPrTYmEKQZYE0GixQ
-  mirror_of: zoom/integrations/zoom-integration-edges.yml
-  apps:
-  - Stepper
-  listing_count: 1
-  detected: '2026-10-18'
-  detected_by: mirror-platform-listings.py
-  category: Zoom app
 - partner_name: Airbyte
   partner: airbyte
   partner_match: aggregator
@@ -157,6 +123,57 @@ edges:
     detected: '2026-10-21'
   detected_by: sweep-stripe-app-marketplace.py
   first_seen: '2026-10-21'
+- partner_name: WordPress (own)
+  partner: wordpress
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://wordpress.org/plugins/paperform-form-builder/
+  mirror_of: wordpress/integrations/wordpress-integration-edges.yml
+  apps:
+  - Paperform Form Builder – Contact Forms, Ecommerce And Product Pages, Surveys
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: WordPress plugin
+- partner_name: Zoom (own)
+  partner: zoom
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.zoom.us/apps/ixt7WOPrTYmEKQZYE0GixQ
+  mirror_of: zoom/integrations/zoom-integration-edges.yml
+  apps:
+  - Stepper
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Zoom app
+- partner_name: HubSpot (own)
+  partner: hubspot
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://ecosystem.hubspot.com/marketplace/listing/paperform
+  mirror_of: hubspot/integrations/hubspot-integration-edges.yml
+  apps:
+  - Paperform
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: SURVEYS
 method: searched
 checked:
 - https://connectors.airbyte.com/files/registries/v0/cloud_registry.json
@@ -173,6 +190,7 @@ checked:
 - https://stripe.com/partners/directory
 - https://stripe.com/partners/verified-partners
 - https://stripe.partners/sitemap.xml
+- hubspot/integrations/hubspot-integration-edges.yml
 source:
 - https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/
 - https://zapier.com/api/v4/apps/

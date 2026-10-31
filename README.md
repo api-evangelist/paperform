@@ -66,30 +66,123 @@
 
 Paperform is an online form and payment platform offering a REST API for accessing form submissions, managing products and coupons, processing payments, configuring webhooks, and automating form-based workflows. The API supports two access tiers — Standard and Business — gated by subscription plan, with Papersign document signing available as an additional API surface.
 
-## APIs
+**Areas:** Forms · Payments · Submissions · Surveys · E-Signature · Webhook · No-Code
 
-- **Paperform API** — Manage forms, submissions, partial submissions, products, coupons, webhooks, spaces, and translations. Standard API on Pro plan; Business API endpoints on Business/Enterprise plans.
-- **Papersign API** — Manage electronic signature documents, folders, spaces, and webhooks (separate Papersign API plan required).
+## Paperform on APIs.io
 
-## Links
+Everything profiled for Paperform is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/paperform/](https://apis.io/providers/paperform/)** — or go straight to one of the APIs or properties below.
+
+### APIs (15)
+
+- [Papersign API](https://apis.io/apis/paperform/papersign-api/) — REST API for managing Papersign electronic signature documents, folders, spaces, and webhooks. Requires a separate Papersign API plan and provides endpoints…
+- [Paperform Coupons API](https://apis.io/apis/paperform/paperform-coupons-api/) — The Coupons API from Paperform — 2 operation(s) for coupons.
+- [Paperform Files API](https://apis.io/apis/paperform/paperform-files-api/) — The Files API from Paperform — 1 operation(s) for files.
+- [Paperform Form Fields API](https://apis.io/apis/paperform/paperform-form-fields-api/) — The Form Fields API from Paperform — 2 operation(s) for form fields.
+- [Paperform Forms API](https://apis.io/apis/paperform/paperform-forms-api/) — The Forms API from Paperform — 2 operation(s) for forms.
+- [Paperform Papersign Documents API](https://apis.io/apis/paperform/paperform-papersign-documents-api/) — The Papersign Documents API from Paperform — 10 operation(s) for papersign documents.
+- [Paperform Papersign Folders API](https://apis.io/apis/paperform/paperform-papersign-folders-api/) — The Papersign Folders API from Paperform — 1 operation(s) for papersign folders.
+- [Paperform Papersign Spaces API](https://apis.io/apis/paperform/paperform-papersign-spaces-api/) — The Papersign Spaces API from Paperform — 1 operation(s) for papersign spaces.
+- [Paperform Papersign Webhooks API](https://apis.io/apis/paperform/paperform-papersign-webhooks-api/) — The Papersign Webhooks API from Paperform — 2 operation(s) for papersign webhooks.
+- [Paperform Partial Submissions API](https://apis.io/apis/paperform/paperform-partial-submissions-api/) — The Partial Submissions API from Paperform — 3 operation(s) for partial submissions.
+- [Paperform Products API](https://apis.io/apis/paperform/paperform-products-api/) — The Products API from Paperform — 4 operation(s) for products.
+- [Paperform Spaces API](https://apis.io/apis/paperform/paperform-spaces-api/) — The Spaces API from Paperform — 3 operation(s) for spaces.
+- [Paperform Submissions API](https://apis.io/apis/paperform/paperform-submissions-api/) — The Submissions API from Paperform — 3 operation(s) for submissions.
+- [Paperform Translations API](https://apis.io/apis/paperform/paperform-translations-api/) — The Translations API from Paperform — 2 operation(s) for translations.
+- [Paperform Webhooks API](https://apis.io/apis/paperform/paperform-webhooks-api/) — The Webhooks API from Paperform — 2 operation(s) for webhooks.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Paperform Context](https://apis.io/jsonld/paperform/paperform-context/)
+
+#### Security (1)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Paperform Domain Security](https://apis.io/security/paperform/paperform-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Paperform Plans Pricing](https://apis.io/plans/paperform/paperform-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Paperform Rate Limits](https://apis.io/rate-limits/paperform/paperform-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Paperform Finops](https://apis.io/finops/paperform/paperform-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://paperform.co)
-- [API Documentation](https://paperform.readme.io/reference/getting-started-1)
+- [Documentation](https://paperform.readme.io/reference/getting-started-1)
 - [Pricing](https://paperform.co/pricing/)
-- [GitHub Org](https://github.com/paperform-co)
 - [Blog](https://paperform.co/blog/)
-- [Status Page](https://paperform.statuspage.io/)
-- [LinkedIn](https://www.linkedin.com/company/paperformco)
-- [X / Twitter](https://x.com/paperformco)
+- [Status](https://paperform.statuspage.io/)
 
-## Authentication
+## API Evangelist rating
 
-All API requests require a Bearer token in the `Authorization` header. Generate your API key at [https://paperform.co/account/developer](https://paperform.co/account/developer).
+**Kin Score 30.6** — thin · rubric 0.24.0 · scored 2026-10-17
 
-## Rate Limits
+| Facet | Score |
+|---|---|
+| Discoverability | 83.9 |
+| Contract quality | 58.4 |
+| Contract governance | 0.0 |
+| Operational transparency | 26.3 |
+| Developer ergonomics | 13.6 |
+| Access clarity | 18.4 |
 
-Paperform enforces per-minute request limits. Exceeding the limit returns `429 Too Many Requests`. Monitor `X-RateLimit-Limit`, `X-RateLimit-Remaining`, `X-RateLimit-Reset`, and `Retry-After` response headers to manage backoff.
+**Agent readiness 26.5** — agent-aware
 
-## Maintainer
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | unknown |
+| Well Known Catalog | yes |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
 
-Kin Lane — kin@apievangelist.com
+**Regulatory alignment 9.8** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/paperform/](https://apis.io/providers/paperform/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Paperform: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/paperform/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
